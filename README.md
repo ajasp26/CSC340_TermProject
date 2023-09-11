@@ -27,3 +27,4 @@ The app’s unique selling point is its collaborative, community-driven approach
 identification, making it an essential tool in today's digital age, turning passive victims
 into proactive protectors.
 
+[Use Case Diagram For ScamGuard](../CSC340_ProjectUseCase.pdf)
