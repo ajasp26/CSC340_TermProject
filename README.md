@@ -26,3 +26,4 @@ Features include scam posting, verification, comments, ratings, and location-bas
 The app’s unique selling point is its collaborative, community-driven approach to scam
 identification, making it an essential tool in today's digital age, turning passive victims
 into proactive protectors.
+
