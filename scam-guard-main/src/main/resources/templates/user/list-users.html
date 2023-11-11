@@ -24,7 +24,7 @@
 
             <div style="align-content: center;">
                 <p class="my-5">
-                    <a href="/user/new-user" class="btn btn-primary" >Add User</a>
+                    <a href="/business/new-business" class="btn btn-primary" >Add User</a>
                 </p>
 
                 <table class="table table-bordered">
@@ -37,11 +37,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user : ${userList}">
-                            <td> <a th:href="@{/user/id={id}(id=${user.id})}" th:text=" ${user.id}" > </a></td>                           
-                            <td th:text=" ${user.userName}"></td>
-                            <td th:text=" ${user.email}"></td>
-                            <td th:text=" ${user.role}"></td>
+                        <tr th:each="business : ${userList}">
+                            <td> <a th:href="@{/business/id={id}(id=${business.id})}" th:text=" ${business.id}" > </a></td>
+                            <td th:text=" ${business.userName}"></td>
+                            <td th:text=" ${business.email}"></td>
+                            <td th:text=" ${business.role}"></td>
                         </tr>
 
                     </tbody>

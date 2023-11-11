@@ -38,10 +38,10 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `business`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `business` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `business`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `role`, `user_name`) VALUES
+INSERT INTO `business` (`id`, `email`, `password`, `role`, `user_name`) VALUES
 (1, 'admin@domain.com', '$2a$10$7HwpXMe4Rdc5QRgR4biKHuw5V4djhFo5MwhaXe0sMj5amdQaCRV9O', 'ADMIN', 'admin1'),
 (2, 'mod1@domain.com', '$2a$10$NBCFc7dtcob0xHKEUtzuru1zH3Pzp0rOfHXWD9VZKBLhaubyQvTIK', 'MOD', 'mod1'),
 (3, 'basic1@domain.com', '$2a$10$9xlyop1VmQZVRTV4DL.y2.s6gX0l/QW5jIqMLrudWl7AY6XEqtkUi', 'USER', 'basic1');

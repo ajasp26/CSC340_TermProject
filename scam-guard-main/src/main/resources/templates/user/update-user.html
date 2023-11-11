@@ -23,17 +23,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="col-md-10">
-                        <form action="#" th:action="@{/user/update}" th:object="${user}"
+                        <form action="#" th:action="@{/business/update}" th:object="${business}"
                               method="post">
 
                             <table border="0" cellpadding="10">
                                 <tr>
                                     <td>ID:</td>
-                                    <td><input type="number" th:field="*{id}" value="${user.id}" readonly /></td>
+                                    <td><input type="number" th:field="*{id}" value="${business.id}" readonly /></td>
                                 </tr>
                                 <tr>
                                     <td>User Name:</td>
-                                    <td><input type="text" th:field="*{userName}" value="${user.userName}" required/></td>
+                                    <td><input type="text" th:field="*{userName}" value="${business.userName}" required/></td>
                                 </tr>
                                 <tr>
                                     <td>Password</td>
@@ -41,7 +41,7 @@
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="email" th:field="*{email}"  value="${user.email}" required/></td>
+                                    <td><input type="email" th:field="*{email}"  value="${business.email}" required/></td>
                                 </tr>
                                 <tr>
                                     <td>Role</td>
@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <td><button type="submit">Save</button> </td>
-                                    <td> <a href="/user/all">Cancel</a></td>
+                                    <td> <a href="/business/all">Cancel</a></td>
                                 </tr>
 
                             </table>

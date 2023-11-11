@@ -23,16 +23,16 @@
             <div class="card" style="width: 18rem;">                
                 <div class="card-body">
                     <h5 class="card-title">User</h5>
-                    <p class="card-text" th:text=" 'ID: '+ ${user.id}" />
-                    <p class="card-text" th:text="'Name: '+${user.userName}" />
-                    <p class="card-text" th:text="'Email: '+${user.email}" />  
-                    <p class="card-text" th:text="'Role: '+${user.role}" />   
-                    <a th:href="@{/user/update/id={id}(id=${user.id})}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{/user/delete/id={id}(id=${user.id})}" class="btn btn-primary">Delete</a>
+                    <p class="card-text" th:text=" 'ID: '+ ${business.id}" />
+                    <p class="card-text" th:text="'Name: '+${business.userName}" />
+                    <p class="card-text" th:text="'Email: '+${business.email}" />
+                    <p class="card-text" th:text="'Role: '+${business.role}" />
+                    <a th:href="@{/business/update/id={id}(id=${business.id})}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-primary">Delete</a>
                 </div>
             </div>
             <br>
-                <a href="/user/all" class="btn btn-primary" >User List</a>
+                <a href="/business/all" class="btn btn-primary" >User List</a>
         </div>
     </body>
 </html>

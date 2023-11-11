@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.ERROR).permitAll()
-                .requestMatchers("/product/**").hasAuthority("MOD")
+                .requestMatchers("/product/**").hasAuthority("ADMIN")
                 .requestMatchers("/user/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 )
@@ -40,7 +41,7 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .permitAll()
                 ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
-                .logout((logout) -> logout.permitAll())
+                .logout(LogoutConfigurer::permitAll)
                 .requestCache((cache) -> cache
                 .requestCache(requestCache)
                 );
