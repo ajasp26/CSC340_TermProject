@@ -16,10 +16,7 @@ public class BusinessService {
 
     @Autowired
     BusinessRepository repo;
-
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
-
+    
     @Autowired
     PasswordEncoder passwordEncoder;
 
