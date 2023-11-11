@@ -1,6 +1,10 @@
-package com.csc340.scamguard.user;
+package com.csc340.scamguard.security;
 
 import java.util.ArrayList;
+
+
+import com.csc340.scamguard.business.Business;
+import com.csc340.scamguard.business.BusinessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,20 +17,20 @@ import org.springframework.stereotype.Service;
  * @author sentini
  */
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class BusinessDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository repo;
+    private BusinessRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String title) throws UsernameNotFoundException {
 
-        User user = repo.findByUserName(username).orElseThrow(()
-                -> new UsernameNotFoundException(username + "not found"));
+        Business business = repo.findByTitle(title).orElseThrow(()
+                -> new UsernameNotFoundException(title + "not found"));
         ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
-        authList.add(new SimpleGrantedAuthority(user.getRole()));
+        authList.add(new SimpleGrantedAuthority("BUSINESS"));
         return new org.springframework.security.core.userdetails.User(
-                user.getUserName(), user.getPassword(), authList);
+                business.getTitle(), business.getPassword(), authList);
     }
 
 }

@@ -20,13 +20,13 @@
         </nav>
         <div class="container">
 
-            <h1 style="text-align:center;">Enter User Info</h1>
+            <h1 style="text-align:center;">Enter Business Info</h1>
 
             <div style="align-content: center;">
                 <form action="/business/create" method="post">
                     <div class="form-group">
-                        <label for="user_name">UserName:</label>
-                        <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter username" required></input>
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" name="Title" id="title" placeholder="Enter Title" required></input>
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
@@ -37,12 +37,12 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required></input>
                     </div>
                     <div class="form-group">
-                        <label for="role">Role</label>
-                        <select name="role" id="role"class="form-control form-control-sm">
-                            <option value="USER">User</option>
-                            <option value="MOD">Mod</option>
-                            <option value="ADMIN">Admin</option>
-                        </select>
+                        <label for="phone">Phone:</label>
+                        <input type="number" class="form-control" name="phone" id="phone" placeholder="Enter phone number" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" name="location" id="location" placeholder="Enter location" required></input>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="/business/all">Cancel</a>

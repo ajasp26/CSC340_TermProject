@@ -1,7 +1,7 @@
 package com.csc340.scamguard.security;
 
-import com.csc340.scamguard.user.CustomUserDetailsService;
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -22,7 +22,9 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private CustomUserDetailsService userDetailsService;
+//    private CustomUserDetailsService userDetailsService;
+
+    private BusinessDetailsService businessDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,8 +35,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.ERROR).permitAll()
-                .requestMatchers("/product/**").hasAuthority("ADMIN")
-                .requestMatchers("/user/**").hasAuthority("ADMIN")
+                .requestMatchers("/product/**").permitAll()
+                .requestMatchers("/business/**").permitAll()
+                .requestMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -50,7 +53,7 @@ public class SecurityConfig {
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(
+        auth.userDetailsService(businessDetailsService).passwordEncoder(
                 passwordEncoder());
     }
 
@@ -58,5 +61,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }

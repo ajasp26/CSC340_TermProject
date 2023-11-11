@@ -17,6 +17,9 @@ public class BusinessService {
     @Autowired
     BusinessRepository repo;
 
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -55,6 +58,7 @@ public class BusinessService {
      */
     public void saveBusiness(Business business) {
         business.setPassword(passwordEncoder.encode(business.getPassword()));
+        business.setPending(true);
         repo.save(business);
     }
 

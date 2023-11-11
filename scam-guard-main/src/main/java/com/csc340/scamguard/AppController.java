@@ -1,6 +1,6 @@
 package com.csc340.scamguard;
 
-import com.csc340.scamguard.user.UserService;
+import com.csc340.scamguard.business.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AppController {
 
     @Autowired
-    UserService userService;
+    BusinessService service;
 
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
