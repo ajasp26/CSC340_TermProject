@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 /**
@@ -33,15 +34,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.ERROR).permitAll()
-                .requestMatchers("/product/**").permitAll()
-                .requestMatchers("/business/**").permitAll()
+                .requestMatchers("/alert/**").hasAnyAuthority("BUSINESS", "USER")
+                .requestMatchers("/business/**").hasAuthority("BUSINESS")
                 .requestMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                 .loginPage("/login")
+                .successHandler(myAuthenticationSuccessHandler())
                 .permitAll()
-                ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
+                )
+                .exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout(LogoutConfigurer::permitAll)
                 .requestCache((cache) -> cache
                 .requestCache(requestCache)
@@ -59,6 +62,12 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.csc340.scamguard.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,10 @@ public class BusinessController {
     @Autowired
     private BusinessService service;
 
-    @GetMapping({"", "/"})
-    public String Menu(@RequestParam(name = "continue", required = false) String cont) {
+    @GetMapping({"", "/", "/menu"})
+    public String menu(Model model) {
+        String title = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("currentName", title);
         return "business/menu";
     }
 

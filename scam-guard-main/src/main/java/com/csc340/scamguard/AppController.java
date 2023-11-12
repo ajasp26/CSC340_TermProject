@@ -2,10 +2,15 @@ package com.csc340.scamguard;
 
 import com.csc340.scamguard.business.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
@@ -20,7 +25,12 @@ public class AppController {
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("currentUser", name);
+        model.addAttribute("currentName", name);
+
+        if (service.getBusinessByTitle(name) != null) {
+            return "business/menu";
+        }
+
         return "index";
     }
 
