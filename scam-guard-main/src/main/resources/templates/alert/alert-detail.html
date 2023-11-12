@@ -23,16 +23,16 @@
             <div class="card" style="width: 18rem;">                
                 <div class="card-body">
                     <h5 class="card-title">Product</h5>
-                    <p class="card-text" th:text=" 'ID: '+ ${product.id}" />
-                    <p class="card-text" th:text="'Name: '+${product.name}" />
-                    <p class="card-text" th:text="'Name: '+${product.type}" />
-                    <p class="card-text" th:text="'Price: '+${product.price}" />                        
-                    <a th:href="@{/product/update/id={id}(id=${product.id})}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{/product/delete/id={id}(id=${product.id})}" class="btn btn-primary">Delete</a>
+                    <p class="card-text" th:text=" 'ID: '+ ${alert.id}" />
+                    <p class="card-text" th:text="'Name: '+${alert.name}" />
+                    <p class="card-text" th:text="'Name: '+${alert.type}" />
+                    <p class="card-text" th:text="'Price: '+${alert.price}" />
+                    <a th:href="@{/alert/update/id={id}(id=${alert.id})}" class="btn btn-primary">Edit</a>
+                    <a th:href="@{/alert/delete/id={id}(id=${alert.id})}" class="btn btn-primary">Delete</a>
                 </div>
             </div>
             <br>
-                <a href="/product/all" class="btn btn-primary" >Product List</a>
+                <a href="/alert/all" class="btn btn-primary" >Product List</a>
         </div>
     </body>
 </html>

@@ -1,4 +1,4 @@
-package com.csc340.scamguard.product;
+package com.csc340.scamguard.alert;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,25 +15,27 @@ import lombok.Setter;
  * @author csc340-f23
  */
 @Entity
-@Table(name = "product")
+@Table(name = "alert")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Product {
+public class Alert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private long posted_by;
 
     private String name;
-    private String type;
-    private double price;
+    private String method;
+    private String location;
 
-    public Product(String name, String type, double price) {
+    public Alert(int posted_by, String name, String method, String location) {
+        this.posted_by = posted_by;
         this.name = name;
-        this.type = type;
-        this.price = price;
+        this.method = method;
+        this.location = location;
     }
 
 }

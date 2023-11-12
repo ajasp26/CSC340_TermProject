@@ -22,8 +22,6 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    private CustomUserDetailsService userDetailsService;
-
     private BusinessDetailsService businessDetailsService;
 
     @Bean
