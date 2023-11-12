@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
- * @author csc340-f23
+ * @author Derek Fox
  */
 @Controller
 @RequestMapping("/alert")
@@ -68,6 +68,8 @@ public class AlertController {
 
     @PostMapping("/update")
     public String updateAlert(Alert alert) {
+        alert.setPosted_by(alertService.getAlert(alert.getId()).getPosted_by()); //still posted by same business
+
         alertService.saveAlert(alert);
         return "redirect:/alert/all";
     }
