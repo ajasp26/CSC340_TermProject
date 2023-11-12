@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author csc340-f23
+ * @author Derek Fox
  */
 @Service
 public class BusinessService {

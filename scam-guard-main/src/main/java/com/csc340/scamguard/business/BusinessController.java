@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  *
- * @author csc340-f23
+ * @author Derek Fox
  */
 @Controller
 @RequestMapping("/business")

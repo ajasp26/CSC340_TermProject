@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  *
- * @author csc340-f23
+ * @author Derek Fox
  */
 public interface AlertRepository extends JpaRepository<Alert, Long> {
 

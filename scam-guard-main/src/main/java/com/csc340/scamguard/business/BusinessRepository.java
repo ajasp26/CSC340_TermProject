@@ -6,7 +6,7 @@ import java.util.Optional;
 
 /**
  *
- * @author csc340-f23
+ * @author Derek Fox
  */
 public interface BusinessRepository extends JpaRepository<Business, Long> {
 

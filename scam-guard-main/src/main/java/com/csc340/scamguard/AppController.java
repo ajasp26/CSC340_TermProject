@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
- * @author sentini
+ * @author Derek Fox
  */
 @Controller
 public class AppController {

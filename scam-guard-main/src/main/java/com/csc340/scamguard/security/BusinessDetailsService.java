@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author sentini
+ * @author Derek Fox
  */
 @Service
 public class BusinessDetailsService implements UserDetailsService {
