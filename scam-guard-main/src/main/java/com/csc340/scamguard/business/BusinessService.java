@@ -21,26 +21,26 @@ public class BusinessService {
     PasswordEncoder passwordEncoder;
 
     /**
-     * Get all users
+     * Get all businesss
      *
-     * @return the list of users.
+     * @return the list of businesss.
      */
     public List<Business> getAllBusinesses() {
         return repo.findAll();
     }
 
     /**
-     * Find one user by ID.
+     * Find one business by ID.
      *
      * @param id
-     * @return the user
+     * @return the business
      */
     public Business getBusiness(long id) {
         return repo.getReferenceById(id);
     }
 
     /**
-     * Delete user by ID.
+     * Delete business by ID.
      *
      * @param id
      */
@@ -49,7 +49,7 @@ public class BusinessService {
     }
 
     /**
-     * Save user entry.
+     * Save business entry.
      *
      * @param business
      */
@@ -60,7 +60,7 @@ public class BusinessService {
     }
 
     /**
-     * Update existing user.
+     * Update existing business.
      *
      * @param business
      */
@@ -75,9 +75,6 @@ public class BusinessService {
         if (business.getEmail() != null) {
             existing.setEmail(business.getEmail());
         }
-//        if (business.getRole() != null) {
-//            existing.setRole(business.getRole());
-//        }
         repo.save(existing);
     }
 
