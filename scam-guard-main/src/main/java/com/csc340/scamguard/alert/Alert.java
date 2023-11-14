@@ -31,7 +31,7 @@ public class Alert {
     private String method;
     private String location;
 
-    public Alert(int posted_by, String name, String method, String location) {
+    public Alert(long posted_by, String name, String method, String location) {
         this.posted_by = posted_by;
         this.name = name;
         this.method = method;

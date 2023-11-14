@@ -55,7 +55,7 @@ public class BusinessService {
      */
     public void saveBusiness(Business business) {
         business.setPassword(passwordEncoder.encode(business.getPassword()));
-        business.setPending(true);
+        business.setPending(true); //business is pending until approved by admin
         repo.save(business);
     }
 

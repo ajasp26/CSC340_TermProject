@@ -68,7 +68,9 @@ public class AlertController {
 
     @PostMapping("/update")
     public String updateAlert(Alert alert) {
-        alert.setPosted_by(alertService.getAlert(alert.getId()).getPosted_by()); //still posted by same business
+        //still posted by same business
+        long postedBy = alertService.getAlert(alert.getId()).getPosted_by();
+        alert.setPosted_by(postedBy);
 
         alertService.saveAlert(alert);
         return "redirect:/alert/all";
