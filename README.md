@@ -44,6 +44,7 @@ ScamGuard is an interactive web platform designed to empower users to report and
 
 ### Business User
 - Respond to scam reports.
+- Post/Edit/Delete Alerts
 - View business-related scam report statistics.
 
 ### Admin User
