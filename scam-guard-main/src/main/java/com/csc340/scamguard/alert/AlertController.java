@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Derek Fox
@@ -29,6 +32,11 @@ public class AlertController {
     @GetMapping("/all")
     public String getAllAlerts(Model model) {
         model.addAttribute("alertList", alertService.getAllAlerts());
+        Map<Long, String> businessDict = new HashMap<>();
+        for (Business b : businessService.getAllBusinesses()) {
+            businessDict.put(b.getId(), b.getTitle());
+        }
+        model.addAttribute("businessDict", businessDict);
         return "alert/list-alerts";
     }
 
@@ -42,6 +50,11 @@ public class AlertController {
     @GetMapping("/id={alertId}")
     public String getAlert(@PathVariable long alertId, Model model) {
         model.addAttribute("alert", alertService.getAlert(alertId));
+        Map<Long, String> businessDict = new HashMap<>();
+        for (Business b : businessService.getAllBusinesses()) {
+            businessDict.put(b.getId(), b.getTitle());
+        }
+        model.addAttribute("businessDict", businessDict);
         return "alert/alert-detail";
     }
 

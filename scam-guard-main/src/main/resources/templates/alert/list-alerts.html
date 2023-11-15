@@ -37,18 +37,17 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Posted By</th>
                                 <th>Name</th>
+                                <th>Posted By</th>
                                 <th>Method</th>
                                 <th>Location</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="alert : ${alertList}">
-                                <td> <a th:href="@{/alert/id={id}(id=${alert.id})}" th:text=" ${alert.id}" > </a></td>
-                                <td> <a th:href="@{/business/id={id}(id=${alert.posted_by})}" th:text=" ${alert.posted_by}" > </a></td>
-                                <td th:text=" ${alert.name}"></td>
+                                <td> <a th:href="@{/alert/id={id}(id=${alert.id})}" th:text=" ${alert.name}" > </a></td>
+                                <td> <a th:href="@{/business/id={id}(id=${alert.posted_by})}"
+                                        th:text=" ${businessDict.get(alert.posted_by)}" > </a></td>
                                 <td th:text=" ${alert.method}"></td>
                                 <td th:text=" ${alert.location}"></td>
                             </tr>
