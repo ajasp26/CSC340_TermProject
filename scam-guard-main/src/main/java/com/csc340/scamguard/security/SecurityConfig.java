@@ -10,20 +10,21 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 /**
- *
  * @author Derek Fox
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private BusinessDetailsService businessDetailsService;
+
+    private CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,29 +33,31 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                        DispatcherType.ERROR).permitAll()
-                .requestMatchers("/alert/**").hasAnyAuthority("BUSINESS", "USER")
-                .requestMatchers("/business/**").hasAuthority("BUSINESS")
-                .requestMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                                DispatcherType.ERROR).permitAll()
+                        .requestMatchers("/alert/**").permitAll()
+                        .requestMatchers("/business/**").permitAll()
+                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                .loginPage("/login")
+                                .loginPage("/login")
                 .successHandler(myAuthenticationSuccessHandler())
-                .permitAll()
+                                .permitAll()
                 )
                 .exceptionHandling((x) -> x.accessDeniedPage("/403"))
                 .logout(LogoutConfigurer::permitAll)
                 .requestCache((cache) -> cache
-                .requestCache(requestCache)
+                        .requestCache(requestCache)
                 );
 
         return http.build();
     }
 
+
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(businessDetailsService).passwordEncoder(
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(
                 passwordEncoder());
     }
 
@@ -64,10 +67,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
-
 
 
 }
