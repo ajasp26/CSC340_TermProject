@@ -28,23 +28,20 @@ public class AlertController {
 
     @GetMapping("/all")
     public String getAllAlerts(Model model) {
-        model.addAttribute("alertList",
-                alertService.getAllAlerts());
+        model.addAttribute("alertList", alertService.getAllAlerts());
         return "alert/list-alerts";
     }
 
     @GetMapping("/search")
     public String getAlerts(Model model, @Param("keyword") String keyword) {
-        model.addAttribute("alertList",
-                alertService.getAllAlerts(keyword));
+        model.addAttribute("alertList", alertService.getAllAlerts(keyword));
         model.addAttribute("keyword", keyword);
         return "alert/list-alerts";
     }
 
     @GetMapping("/id={alertId}")
     public String getAlert(@PathVariable long alertId, Model model) {
-        model.addAttribute("alert",
-                alertService.getAlert(alertId));
+        model.addAttribute("alert", alertService.getAlert(alertId));
         return "alert/alert-detail";
     }
 
@@ -83,8 +80,7 @@ public class AlertController {
 
     @GetMapping("/update/id={alertId}")
     public String updateAlertForm(@PathVariable long alertId, Model model) {
-        model.addAttribute("alert",
-                alertService.getAlert(alertId));
+        model.addAttribute("alert", alertService.getAlert(alertId));
         return "alert/update-alert";
     }
 }

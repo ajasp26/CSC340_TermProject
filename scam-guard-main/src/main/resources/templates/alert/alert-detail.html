@@ -24,8 +24,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Alert</h5>
                     <p class="card-text" th:text=" 'ID: '+ ${alert.id}" />
+                    <p class="card-text" th:text=" 'Posted By: '+ ${alert.posted_by}" />
                     <p class="card-text" th:text="'Name: '+${alert.name}" />
-                    <p class="card-text" th:text="'Name: '+${alert.method}" />
+                    <p class="card-text" th:text="'Method: '+${alert.method}" />
                     <p class="card-text" th:text="'Price: '+${alert.location}" />
                     <a th:href="@{/alert/update/id={id}(id=${alert.id})}" class="btn btn-primary">Edit</a>
                     <a th:href="@{/alert/delete/id={id}(id=${alert.id})}" class="btn btn-primary">Delete</a>
