@@ -1,26 +1,39 @@
 package com.csc340.scamguard;
 
-import com.csc340.scamguard.user.UserService;
+import com.csc340.scamguard.business.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  *
- * @author sentini
+ * @author Derek Fox
  */
 @Controller
 public class AppController {
 
     @Autowired
-    UserService userService;
+    BusinessService service;
 
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
+        //who is logged in?
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("currentUser", name);
+        model.addAttribute("currentName", name);
+
+        //if business, redirect to business dashboard
+        if (service.getBusinessByTitle(name) != null) {
+            return "business/menu";
+        }
+
+        //otherwise, redirect to default dashboard
         return "index";
     }
 

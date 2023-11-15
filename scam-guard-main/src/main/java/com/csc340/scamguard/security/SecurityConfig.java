@@ -1,27 +1,29 @@
 package com.csc340.scamguard.security;
 
-import com.csc340.scamguard.user.CustomUserDetailsService;
 import jakarta.servlet.DispatcherType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 /**
  *
- * @author sentini
+ * @author Derek Fox
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private CustomUserDetailsService userDetailsService;
+    private BusinessDetailsService businessDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,15 +34,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.ERROR).permitAll()
-                .requestMatchers("/product/**").hasAuthority("MOD")
-                .requestMatchers("/user/**").hasAuthority("ADMIN")
+                .requestMatchers("/alert/**").hasAnyAuthority("BUSINESS", "USER")
+                .requestMatchers("/business/**").hasAuthority("BUSINESS")
+                .requestMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                 .loginPage("/login")
+                .successHandler(myAuthenticationSuccessHandler())
                 .permitAll()
-                ).exceptionHandling((x) -> x.accessDeniedPage("/403"))
-                .logout((logout) -> logout.permitAll())
+                )
+                .exceptionHandling((x) -> x.accessDeniedPage("/403"))
+                .logout(LogoutConfigurer::permitAll)
                 .requestCache((cache) -> cache
                 .requestCache(requestCache)
                 );
@@ -49,7 +54,7 @@ public class SecurityConfig {
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(
+        auth.userDetailsService(businessDetailsService).passwordEncoder(
                 passwordEncoder());
     }
 
@@ -57,5 +62,12 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
+
 
 }
