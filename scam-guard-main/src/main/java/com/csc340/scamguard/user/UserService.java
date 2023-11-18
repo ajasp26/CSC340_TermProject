@@ -3,12 +3,12 @@ package com.csc340.scamguard.user;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- *
- * @author csc340-f23
+ * @author Kenny Banks
  */
 @Service
 public class UserService {
@@ -69,12 +69,6 @@ public class UserService {
         }
         if (user.getPassword() != null) {
             existing.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        if (user.getEmail() != null) {
-            existing.setEmail(user.getEmail());
-        }
-        if (user.getRole() != null) {
-            existing.setRole(user.getRole());
         }
         repo.save(existing);
     }

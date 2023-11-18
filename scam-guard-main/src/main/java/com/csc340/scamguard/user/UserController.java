@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- *
- * @author csc340-f23
+ * @author Kenny Banks
  */
 @Controller
 @RequestMapping("/user")

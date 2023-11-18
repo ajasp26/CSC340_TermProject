@@ -1,5 +1,6 @@
 package com.csc340.scamguard;
 
+import com.csc340.scamguard.business.BusinessService;
 import com.csc340.scamguard.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,18 +10,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
- * @author sentini
+ * @author Derek Fox
  */
 @Controller
 public class AppController {
+
+    @Autowired
+    BusinessService businessService;
 
     @Autowired
     UserService userService;
 
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
+        //who is logged in?
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("currentUser", name);
+        model.addAttribute("currentName", name);
+
+        //if business, redirect to business dashboard
+        if (businessService.getBusinessByTitle(name) != null) {
+            return "business/menu";
+        }
+
+        //otherwise, redirect to default dashboard
         return "index";
     }
 

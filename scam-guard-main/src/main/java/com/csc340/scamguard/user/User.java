@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- *
- * @author csc340-f23
+ * @author Kenny Banks
  */
 @Entity
 @Table(name = "user")
@@ -21,20 +20,29 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String userName;
-    private String email;
-    private String role;
     private String password;
 
-    public User(String userName, String email, String role, String password) {
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
-        this.email = email;
-        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
+    public long getId() {
+        return id;
+    }
 }
