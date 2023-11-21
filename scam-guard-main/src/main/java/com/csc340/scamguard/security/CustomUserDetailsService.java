@@ -48,6 +48,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                     business.getTitle(), business.getPassword(), authList);
         }
 
+
+
         throw new UsernameNotFoundException(username + " not found");
     }
 }

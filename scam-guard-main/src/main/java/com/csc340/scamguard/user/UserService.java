@@ -3,7 +3,6 @@ package com.csc340.scamguard.user;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,8 @@ public class UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+
 
     /**
      * Get all users
@@ -41,12 +42,17 @@ public class UserService {
     /**
      * Delete user by ID.
      *
-     * @param id
+     * @param id The ID of the user to delete
+     * @return true if the user was deleted, false if the user did not exist
      */
-    public void deleteUser(long id) {
-        repo.deleteById(id);
+    public boolean deleteUser(long id) {
+        if (repo.existsById(id)) {
+            repo.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
-
     /**
      * Save user entry.
      *
@@ -77,4 +83,6 @@ public class UserService {
         return repo.findByUserName(userName).orElseThrow(()
                 -> new UsernameNotFoundException(userName + "not found"));
     }
+
+
 }

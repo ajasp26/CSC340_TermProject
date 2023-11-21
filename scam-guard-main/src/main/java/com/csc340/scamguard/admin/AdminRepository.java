@@ -2,6 +2,8 @@ package com.csc340.scamguard.admin;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-    // Custom query methods can be added here
+//    Optional<Admin> findByTitle(String title);
 }

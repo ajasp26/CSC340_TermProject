@@ -1,29 +1,26 @@
 package com.csc340.scamguard.admin;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "admin") // Ensure this matches the actual table name in the database
 public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false, unique = true) // Assuming the admin name is unique
     private String name;
+
+    @Column(nullable = false, unique = true) // Assuming the admin email is unique
     private String email;
-    private String password; // Note: In production, you should store a hashed password
 
-    public Admin(Long id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public Admin() {
-
-    }
+    @Column(nullable = false)
+    private String password; // This should be a hashed password
 }

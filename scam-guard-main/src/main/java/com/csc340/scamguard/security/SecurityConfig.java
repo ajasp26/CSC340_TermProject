@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/alert/**").permitAll()
                         .requestMatchers("/business/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
