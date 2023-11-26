@@ -19,6 +19,8 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
     /**
      * Get all users
      *
@@ -41,12 +43,17 @@ public class UserService {
     /**
      * Delete user by ID.
      *
-     * @param id
+     * @param id The ID of the user to delete
+     * @return true if the user was deleted, false if the user did not exist
      */
-    public void deleteUser(long id) {
-        repo.deleteById(id);
+    public boolean deleteUser(long id) {
+        if (repo.existsById(id)) {
+            repo.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
-
     /**
      * Save user entry.
      *
@@ -77,4 +84,6 @@ public class UserService {
         return repo.findByUserName(userName).orElseThrow(()
                 -> new UsernameNotFoundException(userName + "not found"));
     }
+
+
 }
