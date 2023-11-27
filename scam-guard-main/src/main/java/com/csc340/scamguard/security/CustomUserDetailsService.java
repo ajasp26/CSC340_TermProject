@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.swing.text.html.Option;
 
 /**
- * @author Kenny Banks
+ * @author Kenny Banks, Derek Fox
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

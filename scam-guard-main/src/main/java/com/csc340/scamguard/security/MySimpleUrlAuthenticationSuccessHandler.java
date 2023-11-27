@@ -15,6 +15,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Redirects user to different pages based on their role.
+ * @Author Derek Fox
+ */
 public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
