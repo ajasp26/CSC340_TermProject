@@ -25,7 +25,7 @@
                     <h5 class="card-title">Business</h5>
                     <!-- TODO: add displays for other fields of businesses-->
                     <p class="card-text" th:text=" 'ID: '+ ${business.id}" />
-                    <p class="card-text" th:text="'Name: '+${business.title}" />
+                    <p class="card-text" th:text="'Name: '+${business.getName}" />
                     <p class="card-text" th:text="'Email: '+${business.email}" />
                     <a th:href="@{/business/update/id={id}(id=${business.id})}" class="btn btn-primary">Edit</a>
                     <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-primary">Delete</a>

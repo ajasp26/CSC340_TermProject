@@ -9,6 +9,7 @@ import com.csc340.scamguard.business.Business;
 import com.csc340.scamguard.business.BusinessRepository;
 import com.csc340.scamguard.user.User;
 import com.csc340.scamguard.user.UserRepository;
+import com.csc340.scamguard.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,33 +36,53 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Client> optionalClient = tryGetClient(username);
+
+        if (optionalClient.isEmpty()) {
+            throw new UsernameNotFoundException(username + " not found");
+        }
+
+        Client client = optionalClient.get();
+        String name;
+        String password;
+        ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
+
+        if (client instanceof User) {
+            authList.add(new SimpleGrantedAuthority("USER"));
+            name = ((User) client).getUserName();
+            password = ((User) client).getPassword();
+        } else if (client instanceof Business) {
+            authList.add(new SimpleGrantedAuthority("BUSINESS"));
+            name = ((Business) client).getTitle();
+            password = ((Business) client).getPassword();
+        } else if (client instanceof Admin) {
+            authList.add(new SimpleGrantedAuthority("ADMIN"));
+            name = ((Admin) client).getName();
+            password = ((Admin) client).getPassword();
+        } else {
+            throw new IllegalStateException("Unknown client type");
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                name, password, authList);
+    }
+
+    private Optional<Client> tryGetClient(String username) {
         Optional<User> optionalUser = userRepository.findByUserName(username);
         if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
-            authList.add(new SimpleGrantedAuthority("USER"));
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUserName(), user.getPassword(), authList);
+            return Optional.of(optionalUser.get());
         }
 
         Optional<Business> optionalBusiness = businessRepository.findByTitle(username);
         if (optionalBusiness.isPresent()) {
-            Business business = optionalBusiness.get();
-            ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
-            authList.add(new SimpleGrantedAuthority("BUSINESS"));
-            return new org.springframework.security.core.userdetails.User(
-                    business.getTitle(), business.getPassword(), authList);
+            return Optional.of(optionalBusiness.get());
         }
 
         Optional<Admin> optionalAdmin = adminRepository.findByName(username);
         if (optionalAdmin.isPresent()) {
-            Admin admin = optionalAdmin.get();
-            ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
-            authList.add(new SimpleGrantedAuthority("ADMIN"));
-            return new org.springframework.security.core.userdetails.User(
-                    admin.getName(), admin.getPassword(), authList);
+            return Optional.of(optionalAdmin.get());
         }
 
-        throw new UsernameNotFoundException(username + " not found");
+        return Optional.empty();
     }
 }

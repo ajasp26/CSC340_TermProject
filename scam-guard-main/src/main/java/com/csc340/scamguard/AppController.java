@@ -27,11 +27,9 @@ public class AppController {
 
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
-        //who is logged in?
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentName", name);
 
-        //if business, redirect to business dashboard
         if (businessService.getBusinessByTitle(name) != null) {
             return "business/menu";
         } else if (userService.getUserByUserName(name) != null) {

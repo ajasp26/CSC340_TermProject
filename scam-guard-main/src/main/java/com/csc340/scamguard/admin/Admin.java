@@ -1,5 +1,6 @@
 package com.csc340.scamguard.admin;
 
+import com.csc340.scamguard.Client;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,12 +10,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "admin") // Ensure this matches the actual table name in the database
-public class Admin {
+public class Admin extends Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private long id;
 
     private String name;
     private String email;

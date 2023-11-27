@@ -39,7 +39,7 @@
                     <tbody>
                         <tr th:each="business : ${businessList}">
                             <td> <a th:href="@{/business/id={id}(id=${business.getId()})}" th:text=" ${business.id}" > </a></td>
-                            <td th:text=" ${business.title}"></td>
+                            <td th:text=" ${business.getName}"></td>
                             <td th:text=" ${business.email}"></td>
                             <td th:text=" ${business.location}"></td>
                         </tr>

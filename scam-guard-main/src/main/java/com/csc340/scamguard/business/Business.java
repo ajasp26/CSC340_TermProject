@@ -1,5 +1,6 @@
 package com.csc340.scamguard.business;
 
+import com.csc340.scamguard.Client;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Business {
+public class Business extends Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +29,5 @@ public class Business {
     private long phone;
     private String location;
 
-    public Business(String title, String email, String password, boolean pending, long phone, String location) {
-        this.title = title;
-        this.email = email;
-        this.password = password;
-        this.pending = pending;
-        this.phone = phone;
-        this.location = location;
-    }
 
 }
