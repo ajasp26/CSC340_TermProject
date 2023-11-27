@@ -47,13 +47,13 @@ public class BusinessController {
     public String createBusiness(Business business) {
 
         service.saveBusiness(business);
-        return "redirect:/business/all";
+        return "redirect:/business/menu";
     }
 
     @PostMapping("/update")
     public String updateBusiness(Business business) {
         service.updateBusiness(business);
-        return "redirect:/business/all";
+        return "redirect:/business/menu";
     }
 
     @GetMapping("/new-business")
@@ -65,6 +65,11 @@ public class BusinessController {
     public String updateBusinessForm(@PathVariable long id, Model model) {
         model.addAttribute("business", service.getBusiness(id));
         return "business/update-business";
+    }
+
+    @GetMapping("/register")
+    public String registerBusinessForm() {
+        return "business/new-business";
     }
 
 }

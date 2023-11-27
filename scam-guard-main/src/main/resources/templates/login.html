@@ -38,6 +38,18 @@
 
         </div>
 
+        <div>
+            <h2 class="display-4" style="text-align:center">Don't have an account?</h2>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+            <form th:action="@{business/register}" method="get">
+                <div><input type="submit" value="Register as a Business"/></div>
+            </form>
+            <form th:action="@{user/register}" method="get">
+                <div><input type="submit" value="Register as a User"/></div>
+            </form>
+        </div>
+
 
 
 
