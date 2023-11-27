@@ -1,6 +1,7 @@
 package com.csc340.scamguard.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,10 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping({"", "/"})
-    public String userMenu(@RequestParam(name = "continue", required = false) String cont) {
+    @GetMapping({"", "/", "/menu"})
+    public String userMenu(Model model) {
+        String title = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("currentName", title);
         return "user/menu";
     }
 
