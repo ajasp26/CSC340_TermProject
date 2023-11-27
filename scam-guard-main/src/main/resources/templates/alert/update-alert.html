@@ -44,7 +44,7 @@
                                     <td><input type="text" th:field="*{location}" required value="${alert.location}"/></td>
                                 </tr>
                                 <tr>
-                                    <td><button type="submit">Save</button> </td>
+                                    <td><button type="submit" onclick="return confirm('Are you sure?')">Save</button> </td>
                                     <td> <a href="/alert/all">Cancel</a></td>
                                 </tr>
 

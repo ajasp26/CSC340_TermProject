@@ -32,6 +32,7 @@ public class AlertController {
     @GetMapping("/all")
     public String getAllAlerts(Model model) {
         model.addAttribute("alertList", alertService.getAllAlerts());
+        //Allow the alert list to display the business title instead of the business id
         Map<Long, String> businessDict = new HashMap<>();
         for (Business b : businessService.getAllBusinesses()) {
             businessDict.put(b.getId(), b.getTitle());
@@ -49,12 +50,10 @@ public class AlertController {
 
     @GetMapping("/id={alertId}")
     public String getAlert(@PathVariable long alertId, Model model) {
-        model.addAttribute("alert", alertService.getAlert(alertId));
-        Map<Long, String> businessDict = new HashMap<>();
-        for (Business b : businessService.getAllBusinesses()) {
-            businessDict.put(b.getId(), b.getTitle());
-        }
-        model.addAttribute("businessDict", businessDict);
+        Alert alert = alertService.getAlert(alertId);
+        model.addAttribute("alert", alert);
+        Business business = businessService.getBusiness(alert.getPosted_by());
+        model.addAttribute("business", business);
         return "alert/alert-detail";
     }
 

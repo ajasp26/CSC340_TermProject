@@ -23,11 +23,14 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${alert.name}"></h5>
-                    <p class="card=text" th:text="'Posted by: '+${businessDict.get(alert.posted_by)}" />
+                    <p class="card=text" th:text="'Posted by: '+${business.title}" />
                     <p class="card-text" th:text="'Method: '+${alert.method}" />
                     <p class="card-text" th:text="'Location: '+${alert.location}" />
                     <a th:href="@{/alert/update/id={id}(id=${alert.id})}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{/alert/delete/id={id}(id=${alert.id})}" class="btn btn-primary">Delete</a>
+                    <!--<a th:href="@{/alert/delete/id={id}(id=${alert.id})}" class="btn btn-primary">Delete</a>-->
+                    <form class="form-inline" th:action="@{/alert/delete/id={id}(id=${alert.id})}" method="get">
+                        <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
                 </div>
             </div>
             <br>
