@@ -47,7 +47,7 @@ public class BusinessController {
     public String createBusiness(Business business) {
 
         service.saveBusiness(business);
-        return "redirect:/business/menu";
+        return "redirect:/login";
     }
 
     @PostMapping("/update")
