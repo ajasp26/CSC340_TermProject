@@ -9,6 +9,5 @@ import java.util.Optional;
  * @author Derek Fox
  */
 public interface BusinessRepository extends JpaRepository<Business, Long> {
-
     Optional<Business> findByTitle(String title);
 }

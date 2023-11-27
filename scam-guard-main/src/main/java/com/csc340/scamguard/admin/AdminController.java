@@ -1,50 +1,65 @@
 package com.csc340.scamguard.admin;
 
-import com.csc340.scamguard.user.User;
-import com.csc340.scamguard.user.UserService;
+import com.csc340.scamguard.business.Business;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/admins")
+@Controller
+@RequestMapping("/admin")
 public class AdminController {
 
-    private final AdminService adminService;
-    private final UserService userService;
-
     @Autowired
-    public AdminController(AdminService adminService, UserService userService) {
-        this.adminService = adminService;
-        this.userService = userService;
+    AdminService service;
+
+    @GetMapping({"", "/", "/menu"})
+    public String menu(Model model) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("currentName", name);
+        return "admin/menu";
     }
 
-//    public AdminController(AdminService adminService) {
-//        this.adminService = adminService;
-//    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdmin(@PathVariable Long id) {
-        return adminService.getAdminById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers(); // Assuming there's a method to get all users
-        return ResponseEntity.ok(users);
+    @GetMapping("/all")
+    public String getAllAdmins(Model model, @RequestParam(name = "continue", required = false) String cont) {
+        model.addAttribute("adminList", service.getAllAdmins());
+        return "admin/list-admins";
     }
 
-    // Endpoint to delete a user account
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        boolean isDeleted = userService.deleteUser(id); // Assuming there's a method that deletes a user and returns a boolean
-        if (isDeleted) {
-            return ResponseEntity.ok().build(); // Return 200 OK if the deletion was successful
-        } else {
-            return ResponseEntity.notFound().build(); // Return 404 Not Found if the user didn't exist
-        }
+    @GetMapping("/id={id}")
+    public String getAdmin(@PathVariable Long id, Model model) {
+        model.addAttribute("admin", service.getAdmin(id));
+        return "admin/admin-detail";
+    }
+
+    @GetMapping("/delete/id={id}")
+    public String deleteAdmin(@PathVariable Long id) {
+        service.deleteAdmin(id);
+        return "redirect:/admin/all";
+    }
+
+    @PostMapping("/create")
+    public String createAdmin(Admin admin) {
+
+        service.saveAdmin(admin);
+        return "redirect:/admin/all";
+    }
+
+    @PostMapping("/update")
+    public String updateAdmin(Admin admin) {
+        service.updateAdmin(admin);
+        return "redirect:/admin/all";
+    }
+
+    @GetMapping("/new-admin")
+    public String newAdminForm(Model model) {
+        return "admin/new-admin";
+    }
+
+    @GetMapping("/update/id={id}")
+    public String updateAdminForm(@PathVariable long id, Model model) {
+        model.addAttribute("admin", service.getAdmin(id));
+        return "admin/update-admin";
     }
 }

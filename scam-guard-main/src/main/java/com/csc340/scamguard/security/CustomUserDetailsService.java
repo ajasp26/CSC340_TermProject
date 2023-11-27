@@ -3,6 +3,8 @@ package com.csc340.scamguard.security;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.csc340.scamguard.admin.Admin;
+import com.csc340.scamguard.admin.AdminRepository;
 import com.csc340.scamguard.business.Business;
 import com.csc340.scamguard.business.BusinessRepository;
 import com.csc340.scamguard.user.User;
@@ -28,6 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private BusinessRepository businessRepository;
 
+    @Autowired
+    private AdminRepository adminRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByUserName(username);
@@ -46,6 +51,15 @@ public class CustomUserDetailsService implements UserDetailsService {
             authList.add(new SimpleGrantedAuthority("BUSINESS"));
             return new org.springframework.security.core.userdetails.User(
                     business.getTitle(), business.getPassword(), authList);
+        }
+
+        Optional<Admin> optionalAdmin = adminRepository.findByName(username);
+        if (optionalAdmin.isPresent()) {
+            Admin admin = optionalAdmin.get();
+            ArrayList<SimpleGrantedAuthority> authList = new ArrayList<>();
+            authList.add(new SimpleGrantedAuthority("ADMIN"));
+            return new org.springframework.security.core.userdetails.User(
+                    admin.getName(), admin.getPassword(), authList);
         }
 
         throw new UsernameNotFoundException(username + " not found");

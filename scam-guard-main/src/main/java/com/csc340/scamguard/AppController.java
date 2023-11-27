@@ -1,5 +1,6 @@
 package com.csc340.scamguard;
 
+import com.csc340.scamguard.admin.AdminService;
 import com.csc340.scamguard.business.BusinessService;
 import com.csc340.scamguard.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class AppController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AdminService adminService;
+
     @GetMapping(value = {"", "/", "/dashboard", "/home"})
     public String dashboard(Model model) {
         //who is logged in?
@@ -30,10 +34,13 @@ public class AppController {
         //if business, redirect to business dashboard
         if (businessService.getBusinessByTitle(name) != null) {
             return "business/menu";
+        } else if (userService.getUserByUserName(name) != null) {
+            return "user/menu";
+        } else if (adminService.getAdminByName(name) != null){
+            return "admin/menu";
         }
 
-        //otherwise, redirect to default dashboard
-        return "index";
+        throw new IllegalStateException("user has no role");
     }
 
     @GetMapping("/login")

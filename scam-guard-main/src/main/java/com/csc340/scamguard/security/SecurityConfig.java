@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/alert/**").permitAll()
                         .requestMatchers("/business/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
                         .requestMatchers("/").permitAll()
 
                         .anyRequest().authenticated()

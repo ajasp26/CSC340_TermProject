@@ -1,31 +1,52 @@
 package com.csc340.scamguard.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+
+import java.util.List;
+
 
 @Service
 public class AdminService {
 
-    private final AdminRepository adminRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    AdminRepository repo;
 
     @Autowired
-    public AdminService(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
-        this.adminRepository = adminRepository;
-        this.passwordEncoder = passwordEncoder;
+    PasswordEncoder passwordEncoder;
+
+    public List<Admin> getAllAdmins() {return repo.findAll();}
+
+    public Admin getAdminByName(String name) {
+        return repo.findByName(name).orElseThrow(()
+                -> new UsernameNotFoundException(name + "not found"));
     }
 
-    public Admin createAdmin(String name, String email, String password) {
-        String hashedPassword = passwordEncoder.encode(password);
-        Admin admin = new Admin(null, name, email, hashedPassword);
-        return adminRepository.save(admin);
+    public Admin getAdmin(Long id) {
+        return repo.getReferenceById(id);
     }
 
-    public Optional<Admin> getAdminById(Long id) {
-        return adminRepository.findById(id);
+    public void deleteAdmin(long id) {repo.deleteById(id);}
+
+    public void saveAdmin(Admin admin) {
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        repo.save(admin);
     }
 
-    // Additional methods for update, delete, etc., can be added here
+    public void updateAdmin(Admin admin) {
+        Admin existing = repo.getReferenceById(admin.getId());
+        if (admin.getName() != null) {
+            existing.setName(admin.getName());
+        }
+        if (admin.getPassword() != null) {
+            existing.setPassword(passwordEncoder.encode(admin.getPassword()));
+        }
+        if (admin.getEmail() != null) {
+            existing.setEmail(admin.getEmail());
+        }
+        repo.save(existing);
+    }
+
 }
