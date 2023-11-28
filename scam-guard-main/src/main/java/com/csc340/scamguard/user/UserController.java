@@ -50,7 +50,7 @@ public class UserController {
     public String createUser(User user) {
 
         service.saveUser(user);
-        return "redirect:/user/all";
+        return "redirect:/login";
     }
 
     @PostMapping("/update")
@@ -70,4 +70,8 @@ public class UserController {
         return "user/update-user";
     }
 
+    @GetMapping("/register")
+    public String registerUserForm() {
+        return "user/new-user";
+    }
 }

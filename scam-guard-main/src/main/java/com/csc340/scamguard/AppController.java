@@ -52,7 +52,7 @@ public class AppController {
             return "admin/menu";
         }
 
-        throw new IllegalStateException("user has no authority");
+        return "/login";
     }
 
     @GetMapping("/login")
