@@ -47,6 +47,9 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a href="/login">Cancel</a>
                 </form>
+                <div th:if="${error} != null">
+                    <p style="color: red" th:text="${error} + '!'"></p>
+                </div>
 
 
             </div>

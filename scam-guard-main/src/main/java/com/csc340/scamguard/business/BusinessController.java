@@ -44,7 +44,15 @@ public class BusinessController {
     }
 
     @PostMapping("/create")
-    public String createBusiness(Business business) {
+    public String createBusiness(Business business, Model model) {
+        if (service.getBusinessByTitle(business.getTitle()).isPresent()) {
+            model.addAttribute("error", "Business with that title already exists");
+            return "business/new-business";
+        }
+        if (service.getBusinessByEmail(business.getEmail()).isPresent()) {
+            model.addAttribute("error", "Business with that email already exists");
+            return "business/new-business";
+        }
 
         service.saveBusiness(business);
         return "redirect:/login";

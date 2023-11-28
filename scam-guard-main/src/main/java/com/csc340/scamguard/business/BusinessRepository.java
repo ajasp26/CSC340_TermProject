@@ -10,4 +10,6 @@ import java.util.Optional;
  */
 public interface BusinessRepository extends JpaRepository<Business, Long> {
     Optional<Business> findByTitle(String title);
+
+    Optional<Business> findByEmail(String email);
 }
