@@ -2,6 +2,7 @@ package com.csc340.scamguard.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +48,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(User user) {
-
+    public String createUser(User user, Model model) {
+        if (service.getUserByUserName(user.getUserName()).isPresent()) {
+            model.addAttribute("error", "User with that username already exists");
+            return "user/new-user";
+        }
+        if (service.getUserByEmail(user.getEmail()).isPresent()) {
+            model.addAttribute("error", "User with that email already exists");
+            return "user/new-user";
+        }
         service.saveUser(user);
         return "redirect:/login";
     }

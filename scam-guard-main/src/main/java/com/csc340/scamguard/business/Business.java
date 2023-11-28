@@ -22,7 +22,7 @@ public class Business extends Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     private String title;
     private String email;
     private boolean pending;
