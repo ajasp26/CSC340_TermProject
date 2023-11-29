@@ -8,9 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -93,15 +92,23 @@ public class BusinessController {
     public String analytics(Model model) {
         String currentTitle = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentName", currentTitle);
-        List<Scam> scamsOfBusiness =
-                scamService.getAllScamsByBusinessTitle(
-                        currentTitle);
-        Map<String, Integer> scamDateCount = new HashMap<>();
-        for (Scam scam : scamsOfBusiness) {
-           scamDateCount.put(scam.getPosted_on(),
-                   scamDateCount.getOrDefault(scam.getPosted_on(), 0) + 1);
+        List<Scam> scams = scamService.getAllScamsByBusinessTitle(currentTitle);
+        Map<String, Integer> scamsCountByDate = new HashMap<>();
+
+        for (Scam scam : scams) {
+            scamsCountByDate.compute(scam.getPosted_on(), (key, value) -> (value == null ? 1 : value + 1));
         }
-        model.addAttribute("scamDateCount", scamDateCount);
+
+        List<List<Object>> chartData = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : scamsCountByDate.entrySet()) {
+            List<Object> row = new ArrayList<>();
+            row.add(entry.getKey());
+            row.add(entry.getValue());
+            chartData.add(row);
+        }
+
+        model.addAttribute("chartData", chartData);
         return "business/analytics/overview";
     }
 
