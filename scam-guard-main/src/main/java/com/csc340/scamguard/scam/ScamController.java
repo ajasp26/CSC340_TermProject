@@ -58,6 +58,7 @@ public class ScamController {
         // get name of user who posted scam and add it to scam
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         scam.setPosted_by(username);
+        scam.setFlags(0);
 
         scamService.saveScam(scam);
         return "redirect:/scam/all";
