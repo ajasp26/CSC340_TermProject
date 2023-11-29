@@ -9,4 +9,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ScamRepository extends JpaRepository<Scam, Long> {
 
+    //get all scams that have associated business by title
+    @Query("SELECT s FROM Scam s WHERE s.associated_business = ?1")
+    List<Scam> getAllScamsByBusinessTitle(String title);
 }

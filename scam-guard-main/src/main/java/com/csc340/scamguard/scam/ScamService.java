@@ -50,4 +50,8 @@ public class ScamService {
         repo.save(scam);
     }
 
+    public List<Scam> getAllScamsByBusinessTitle(String title) {
+        return repo.getAllScamsByBusinessTitle(title);
+    }
+
 }
