@@ -89,7 +89,7 @@ public class BusinessController {
         return "business/new-business";
     }
 
-    @GetMapping("/analytics")
+    @GetMapping("/analytics/overview")
     public String analytics(Model model) {
         String currentTitle = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentName", currentTitle);
@@ -102,7 +102,19 @@ public class BusinessController {
                    scamDateCount.getOrDefault(scam.getPosted_on(), 0) + 1);
         }
         model.addAttribute("scamDateCount", scamDateCount);
-        return "business/analytics";
+        return "business/analytics/overview";
     }
 
+    @GetMapping("analytics/date={date}")
+    public String analyticsByDate(@PathVariable String date, Model model) {
+        String currentTitle = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("currentName", currentTitle);
+        model.addAttribute("date", date);
+        List<Scam> scamsOnDate = scamService.getAllScamsByBusinessTitle(
+                currentTitle).stream()
+                .filter(scam -> scam.getPosted_on().equals(date))
+                .toList();
+        model.addAttribute("scamsOnDate", scamsOnDate);
+        return "business/analytics/date-detail";
+    }
 }
