@@ -1,7 +1,10 @@
 package com.csc340.scamguard.scam;
 
+import com.csc340.scamguard.business.Business;
+import com.csc340.scamguard.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,9 @@ public class ScamController {
 
     @Autowired
     ScamService scamService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/all")
     public String getAllScams(Model model) {
@@ -49,6 +55,9 @@ public class ScamController {
 
     @PostMapping("/create")
     public String createScam(Scam scam) {
+        // get name of user who posted scam and add it to scam
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        scam.setPosted_by(username);
 
         scamService.saveScam(scam);
         return "redirect:/scam/all";
