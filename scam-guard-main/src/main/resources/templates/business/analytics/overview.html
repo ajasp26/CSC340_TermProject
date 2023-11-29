@@ -23,13 +23,18 @@
                 /*[/]*/
             ]);
 
+            var minValue = [[${minValue}]];
+            var maxValue = [[${maxValue}]];
+            minValue = minValue - minValue * .5;
+            maxValue = maxValue + maxValue * .5;
+
+
             var options = {
-                title: 'Scam Analytics',
-                curveType: 'function',
-                legend: { position: 'bottom' }
+                legend: { position: 'bottom' },
+                vAxis: { viewWindow: { min: minValue, max: maxValue }}
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.LineChart(document.getElementById('chart'));
             chart.draw(data, options);
         }
     </script>
@@ -44,24 +49,22 @@
 <div class="container">
     <h1 th:text="'Hello '+ ${currentName}"> </h1>
     <h2 style="text-align:center;">Business Analytics</h2>
-    <p th:text="'Here are how many postings mention ' + ${currentName}"></p>
     <div style="align-content: center;">
-<!--        <table class="table table-bordered">-->
-<!--            <thead>-->
-<!--                <tr>-->
-<!--                    <th>Date</th>-->
-<!--                    <th>Number of Scams</th>-->
-<!--                </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--                <tr th:each="date : ${scamDateCount.keySet()}">-->
-<!--                    <td> <a th:href="@{/business/analytics/date={date}(date=${date})}" th:text=" ${date}"> </a></td>-->
-<!--                    <td th:text=" ${scamDateCount.get(date)}"></td>-->
-<!--                </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-
-        <div id="curve_chart" style="width: 900px; height: 500px"></div>
+        <div id="chart" style="width:900px; height: 500px"></div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Number of Scams</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="date : ${scamDateCount.keySet()}">
+                <td> <a th:href="@{/business/analytics/date={date}(date=${date})}" th:text=" ${date}"> </a></td>
+                <td th:text=" ${scamDateCount.get(date)}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

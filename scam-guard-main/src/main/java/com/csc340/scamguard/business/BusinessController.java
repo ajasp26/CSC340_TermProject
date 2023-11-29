@@ -92,21 +92,29 @@ public class BusinessController {
     public String analytics(Model model) {
         String currentTitle = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentName", currentTitle);
-        List<Scam> scams = scamService.getAllScamsByBusinessTitle(currentTitle);
-        Map<String, Integer> scamsCountByDate = new HashMap<>();
 
-        for (Scam scam : scams) {
-            scamsCountByDate.compute(scam.getPosted_on(), (key, value) -> (value == null ? 1 : value + 1));
-        }
+        List<Scam> scamList = scamService.getAllScamsByBusinessTitle(currentTitle);
 
-        List<List<Object>> chartData = new ArrayList<>();
+        Map<String, Long> scamsCountByDate = scamList.stream()
+                .collect(Collectors.groupingBy(Scam::getPosted_on, Collectors.counting()));
+        model.addAttribute("scamDateCount", scamsCountByDate);
 
-        for (Map.Entry<String, Integer> entry : scamsCountByDate.entrySet()) {
-            List<Object> row = new ArrayList<>();
-            row.add(entry.getKey());
-            row.add(entry.getValue());
-            chartData.add(row);
-        }
+        List<List<Object>> chartData = scamsCountByDate.entrySet().stream()
+                .map(entry -> Arrays.asList(entry.getKey(), (Object) entry.getValue()))
+                .collect(Collectors.toList());
+
+
+        int minValue = scamsCountByDate.values().stream()
+                .mapToInt(Long::intValue)
+                .min()
+                .orElse(0);
+        int maxValue = scamsCountByDate.values().stream()
+                .mapToInt(Long::intValue)
+                .max()
+                .orElse(0);
+
+        model.addAttribute("minValue", minValue);
+        model.addAttribute("maxValue", maxValue);
 
         model.addAttribute("chartData", chartData);
         return "business/analytics/overview";
