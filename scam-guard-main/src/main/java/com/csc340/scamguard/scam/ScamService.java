@@ -1,6 +1,7 @@
 package com.csc340.scamguard.scam;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,20 @@ public class ScamService {
     public List<Scam> getAllScams() {
         return repo.findAll();
     }
+
+    /**
+     * Get all scams that match the keyword.
+     *
+     * @param keyword the search term.
+     * @return the list of scams.
+     */
+    public List<Scam> getAllScams(String keyword) {
+        if (keyword != null) {
+            return repo.search(keyword);
+        }
+        return repo.findAll();
+    }
+
 
     /**
      * Get all scams from user.

@@ -43,7 +43,7 @@ public class ScamController {
     @GetMapping("/search")
     public String getScams(Model model, @Param("keyword") String keyword) {
         model.addAttribute("scamList",
-                scamService.getAllScams());
+                scamService.getAllScams(keyword));
         model.addAttribute("keyword", keyword);
         return "scam/list-scams";
     }
