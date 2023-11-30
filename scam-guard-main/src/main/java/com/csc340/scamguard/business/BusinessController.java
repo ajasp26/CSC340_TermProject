@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,13 @@ public class BusinessController {
     public String menu(Model model) {
         String title = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("currentName", title);
+
+        Optional<Business> optionalBusiness= businessService.getBusinessByTitle(title);
+        if (optionalBusiness.isPresent()) {
+            Business business = optionalBusiness.get();
+            model.addAttribute("url", business.getUrl());
+        }
+
         return "business/menu";
     }
 
@@ -61,6 +69,10 @@ public class BusinessController {
             model.addAttribute("error", "Business with that email already exists");
             return "business/new-business";
         }
+//        if (businessService.getBusinessByUrl(business.getUrl()).isPresent()) {
+//            model.addAttribute("error", "Business with that URL already exists");
+//            return "business/new-business";
+//        } todo: figure this out
 
         businessService.saveBusiness(business);
         return "redirect:/login";

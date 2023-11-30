@@ -86,4 +86,8 @@ public class BusinessService {
     public Optional<Business> getBusinessByEmail(String email) {
         return repo.findByEmail(email);
     }
+
+    public Optional<Business> getBusinessByUrl(String url) {
+        return repo.findByUrl(url);
+    }
 }

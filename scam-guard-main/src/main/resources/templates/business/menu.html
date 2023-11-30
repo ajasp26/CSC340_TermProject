@@ -18,30 +18,21 @@
     </form>
 </nav>
 <div class="container">
-    <h1 th:text="'Hello '+ ${currentName}"> </h1>
-    <h2 style="text-align:center;">Manage Alerts</h2>
-    <div class="card-deck">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">View</h5>
-                <a href="/alert/all" class="btn btn-primary" >Alert List</a>
+    <div class="row">
+        <div class="col-md-4">
+            <h2 th:text="'Hello, ' + ${currentName}" style="margin-bottom: 20px"></h2>
+            <img th:src="'https://logo.clearbit.com/' + ${url} + '?size=500'" alt="Logo" width="300" height="300"/>
+        </div>
+        <div class="col-md-8">
+            <h2 style="margin-bottom: 30px">Menu</h2>
+            <div class="list-group">
+                <a href="/alert/all" class="list-group-item list-group-item-action">View your alerts</a>
+                <a href="/alert/new-alert" class="list-group-item list-group-item-action">Post an alert</a>
+                <a href="/business/analytics/overview" class="list-group-item list-group-item-action">View your Analytics</a>
+                <a href="/scam/all" class="list-group-item list-group-item-action">View all scams</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Add</h5>
-                <a href="/alert/new-alert" class="btn btn-primary" >Post Alert</a>
-            </div>
-        </div>
+
     </div>
-    <h2 style="text-align:center;">View Analytics</h2>
-    <div class="card-deck">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">View</h5>
-                <a href="/business/analytics/overview" class="btn btn-primary" >Analytics</a>
-            </div>
-        </div>
 </div>
-</body>
 </html>

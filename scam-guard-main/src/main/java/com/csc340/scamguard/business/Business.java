@@ -25,6 +25,8 @@ public class Business extends Client {
 
     private String title;
     private String email;
+    private String url;
+
     private boolean pending;
     private String password;
     private long phone;
