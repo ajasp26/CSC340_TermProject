@@ -18,11 +18,17 @@
             </form>
         </nav>
         <div class="container">
-            <h1 th:text="'Hello '+ ${currentName}"> </h1>
+            <h1 th:text="'Hello, '+ ${currentName}"> </h1>
             <div class="card" style="width: 18rem;">                
                 <div class="card-body">
                     <h5 class="card-title">View Scams</h5>
                     <a href="/scam/all" class="btn btn-primary" >Scam List</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Your Scams</h5>
+                    <a href="/scam/your-scams" class="btn btn-primary" >Scam List</a>
                 </div>
             </div>
             <div class="card" style="width: 18rem;">                

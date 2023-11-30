@@ -23,6 +23,15 @@ public class ScamService {
     }
 
     /**
+     * Get all scams from user.
+     *
+     * @return the list of scams from a specific user.
+     */
+    public List<Scam> getScamsFrom(String username) {
+        return repo.findByPostedBy(username);
+    }
+
+    /**
      * Get a single scam by ID
      *
      * @param scamId

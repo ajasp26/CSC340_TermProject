@@ -32,6 +32,14 @@ public class ScamController {
         return "scam/list-scams";
     }
 
+    @GetMapping("/your-scams")
+    public String getYourScams(Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("scamList",
+                scamService.getScamsFrom(username));
+        return "scam/list-scams";
+    }
+
     @GetMapping("/search")
     public String getScams(Model model, @Param("keyword") String keyword) {
         model.addAttribute("scamList",
