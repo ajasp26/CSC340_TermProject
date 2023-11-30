@@ -23,12 +23,15 @@
             <div class="card" style="width: 18rem;">                
                 <div class="card-body">
                     <h5 class="card-title">Business</h5>
-                    <!-- TODO: add displays for other fields of businesses-->
                     <p class="card-text" th:text=" 'ID: '+ ${business.id}" />
-                    <p class="card-text" th:text="'Name: '+${business.getName}" />
+                    <p class="card-text" th:text="'Title: '+${business.title}" />
                     <p class="card-text" th:text="'Email: '+${business.email}" />
+                    <p class="card-text" th:text="'Domain: '+${business.url}" />
+                    <p class="card-text" th:text="'Location: '+${business.location}" />
                     <a th:href="@{/business/update/id={id}(id=${business.id})}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-primary">Delete</a>
+                    <form class="form-inline" th:action="@{/business/delete/id={id}(id=${business.id})}" method="get">
+                        <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
                 </div>
             </div>
             <br>

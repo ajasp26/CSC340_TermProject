@@ -3,61 +3,61 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head>
-        <title>Create New Business</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
-              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+<head>
+    <title>Create New Business</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
 
-    </head>
-    <body>
-        <nav class="navbar navbar-light bg-light justify-content-between">
-            <a class="navbar-brand" th:href="@{/home}">Home</a>  
-            <!--form class="form-inline" th:action="@{/logout}" method="post">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
-            </form-->
-        </nav>
-        <div class="container">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" th:href="@{/home}">Home</a>
+</nav>
+<div class="container">
 
-            <h1 style="text-align:center;">Enter Business Info</h1>
+    <h1 style="text-align:center; margin-bottom: 30px">Enter Business Info</h1>
+    <div th:if="${error} != null">
+        <p style="color: red" th:text="${error} + '!'"></p>
+    </div>
 
-            <div style="align-content: center;">
-                <form action="/business/create" method="post">
-                    <div class="form-group">
-                        <label for="title">Title:</label>
-                        <input type="text" class="form-control" name="Title" id="title" placeholder="Enter Business Title" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="url">Domain:</label>
-                        <input type="text" class="form-control" name="url" id="url" placeholder="Enter the Domain of your Business" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input type="number" class="form-control" name="phone" id="phone" placeholder="Enter phone number" required></input>
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location:</label>
-                        <input type="text" class="form-control" name="location" id="location" placeholder="Enter location" required></input>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="/login">Cancel</a>
-                </form>
-                <div th:if="${error} != null">
-                    <p style="color: red" th:text="${error} + '!'"></p>
-                </div>
-
-
+    <div style="align-content: center;">
+        <form action="/business/create" method="post">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" name="Title" id="title" placeholder="Enter Business Title"
+                       required></input>
             </div>
-        </div>
-
-    </body>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter email"
+                       required></input>
+            </div>
+            <div class="form-group">
+                <label for="url">Domain:</label>
+                <input type="text" class="form-control" name="url" id="url"
+                       placeholder="Enter the Domain of your Business" required></input>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"
+                       required></input>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="number" class="form-control" name="phone" id="phone" placeholder="Enter phone number"
+                       required></input>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" name="location" id="location" placeholder="Enter location"
+                       required></input>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/login">Cancel</a>
+        </form>
+    </div>
+</div>
+</body>
 </html>
