@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author Kenny Banks
  */
@@ -80,6 +83,13 @@ public class ScamController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         scam.setPosted_by(username);
         scam.setFlags(0);
+
+        // set date to current date
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+
+        scam.setPosted_on(formattedDate);
 
         scamService.saveScam(scam);
         return "redirect:/scam/all";
