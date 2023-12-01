@@ -64,7 +64,13 @@ public class ScamController {
 
     @GetMapping("/delete/id={scamId}")
     public String deleteScam(@PathVariable long scamId, Model model) {
-        scamService.deleteScam(scamId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Scam scam = scamService.getScam(scamId);
+
+        if (username.equals(scam.getPosted_by())) {
+            scamService.deleteScam(scamId);
+        }
+
         return "redirect:/scam/all";
     }
 
@@ -81,7 +87,12 @@ public class ScamController {
 
     @PostMapping("/update")
     public String updateScam(Scam scam) {
-        scamService.saveScam(scam);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (username.equals(scam.getPosted_by())) {
+            scamService.saveScam(scam);
+        }
+
         return "redirect:/scam/all";
     }
 
@@ -92,8 +103,15 @@ public class ScamController {
 
     @GetMapping("/update/id={scamId}")
     public String updateScamForm(@PathVariable long scamId, Model model) {
-        model.addAttribute("scam",
-                scamService.getScam(scamId));
-        return "scam/update-scam";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Scam scam = scamService.getScam(scamId);
+
+        if (username.equals(scam.getPosted_by())) {
+            model.addAttribute("scam",
+                    scam);
+            return "scam/update-scam";
+        } else {
+            return "redirect:/scam/all";
+        }
     }
 }
