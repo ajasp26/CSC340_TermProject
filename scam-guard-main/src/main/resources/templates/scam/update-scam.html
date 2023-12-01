@@ -29,7 +29,7 @@
                             <table border="0" cellpadding="10">
                                 <tr>
                                     <td>Posted By:</td>
-                                    <td><input type="text" th:field="*{posted_by}" required value="${scam.posted_by}"/></td>
+                                    <td><input type="text" th:field="*{posted_by}" disabled value="${scam.posted_by}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Associated Business:</td>
@@ -37,7 +37,11 @@
                                 </tr>
                                 <tr>
                                     <td>Method:</td>
-                                    <td><input type="text" th:field="*{method}" required value="${scam.method}"/></td>
+                                    <td><select name="method" th:field="*{method}" id="method" required value="${scam.method}">
+                                        <option value="E-mail">E-mail</option>
+                                        <option value="Text Message">Text Message</option>
+                                        <option value="Phone">Phone</option>
+                                    </select></td>
                                 </tr>
                                 <tr>
                                     <td>Location:</td>
@@ -49,11 +53,11 @@
                                 </tr>
                                 <tr>
                                     <td>Posted On:</td>
-                                    <td><input type="text" th:field="*{posted_on}" required value="${scam.posted_on}"/></td>
+                                    <td><input type="text" th:field="*{posted_on}" disabled value="${scam.posted_on}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Flags:</td>
-                                    <td><input type="number" min="0" th:field="*{flags}" required value="${scam.flags}"/></td>
+                                    <td><input type="number" min="0" th:field="*{flags}" disabled value="${scam.flags}"/></td>
                                 </tr>
                                 <tr>
                                     <td><button type="submit">Save</button> </td>
