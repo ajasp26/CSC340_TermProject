@@ -1,6 +1,8 @@
 package com.csc340.scamguard.scam;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,9 @@ public class ScamService {
      * @return the list of scams.
      */
     public List<Scam> getAllScams() {
-        return repo.findAll();
+        return repo.findAll().stream()
+                .sorted(Comparator.comparing(Scam::getPosted_on).reversed())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -31,9 +35,11 @@ public class ScamService {
      */
     public List<Scam> getAllScams(String keyword) {
         if (keyword != null) {
-            return repo.search(keyword);
+            return repo.search(keyword).stream()
+                    .sorted(Comparator.comparing(Scam::getPosted_on).reversed())
+                    .collect(Collectors.toList());
         }
-        return repo.findAll();
+        return getAllScams();
     }
 
 
@@ -43,7 +49,9 @@ public class ScamService {
      * @return the list of scams from a specific user.
      */
     public List<Scam> getScamsFrom(String username) {
-        return repo.findByPostedBy(username);
+        return repo.findByPostedBy(username).stream()
+                .sorted(Comparator.comparing(Scam::getPosted_on).reversed())
+                .collect(Collectors.toList());
     }
 
     /**
