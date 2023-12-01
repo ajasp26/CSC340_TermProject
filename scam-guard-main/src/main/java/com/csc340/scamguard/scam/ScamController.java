@@ -50,8 +50,15 @@ public class ScamController {
 
     @GetMapping("/id={scamId}")
     public String getScam(@PathVariable long scamId, Model model) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Scam scam = scamService.getScam(scamId);
         model.addAttribute("scam",
-                scamService.getScam(scamId));
+                scam);
+
+        // condition determining if current user created scam or not
+        boolean isCreator = username.equals(scam.getPosted_by());
+        model.addAttribute("creator", isCreator);
+
         return "scam/scam-detail";
     }
 
