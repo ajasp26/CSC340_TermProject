@@ -49,12 +49,12 @@
                         </thead>
                         <tbody>
                             <tr th:each="scam : ${scamList}">
+                                <td> <a th:href="@{/scam/id={id}(id=${scam.id})}" th:text=" ${scam.description}"></a></td>
                                 <td th:text=" ${scam.posted_by}"></td>
                                 <td th:text=" ${scam.associated_business}"></td>
                                 <td th:text=" ${scam.method}"></td>
                                 <td th:text=" ${scam.target}"></td>
                                 <td th:text=" ${scam.location}"></td>
-                                <td th:text=" ${scam.description}"></td>
                                 <td th:text=" ${scam.flags}"></td>
                                 <td th:text=" ${scam.posted_on}"></td>
                             </tr>
