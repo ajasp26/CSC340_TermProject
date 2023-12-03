@@ -25,9 +25,6 @@ public class ScamController {
     @Autowired
     ScamService scamService;
 
-    @Autowired
-    UserService userService;
-
     @GetMapping("/all")
     public String getAllScams(Model model) {
         model.addAttribute("scamList",
@@ -57,6 +54,8 @@ public class ScamController {
         Scam scam = scamService.getScam(scamId);
         model.addAttribute("scam",
                 scam);
+        model.addAttribute("score",
+                scam.getUpvotes().size() + scam.getDownvotes().size());
 
         // condition determining if current user created scam or not
         boolean isCreator = username.equals(scam.getPosted_by());
@@ -123,5 +122,45 @@ public class ScamController {
         } else {
             return "redirect:/scam/all";
         }
+    }
+
+    @PostMapping("/upvote/id={scamId}")
+    public String upvoteScam(@PathVariable long scamId, Model model) {
+        Scam scam = scamService.getScam(scamId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (scam.getUpvotes().contains(username)) {
+            scam.getUpvotes().remove(username);
+        } else {
+            scam.getUpvotes().add(username);
+        }
+
+        if (scam.getDownvotes().contains(username)) {
+            scam.getDownvotes().remove(username);
+        }
+
+        scamService.saveScam(scam);
+
+        return "";
+    }
+
+    @PostMapping("/downvote/id={scamId}")
+    public String downvoteScam(@PathVariable long scamId, Model model) {
+        Scam scam = scamService.getScam(scamId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (scam.getDownvotes().contains(username)) {
+            scam.getDownvotes().remove(username);
+        } else {
+            scam.getDownvotes().add(username);
+        }
+
+        if (scam.getUpvotes().contains(username)) {
+            scam.getUpvotes().remove(username);
+        }
+
+        scamService.saveScam(scam);
+
+        return "";
     }
 }

@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @author Kenny Banks
  */
@@ -33,4 +35,6 @@ public class Scam {
     private String description;
     private String posted_on;
     private int flags;
+    private List<String> upvotes;
+    private List<String> downvotes;
 }
