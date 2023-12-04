@@ -31,7 +31,6 @@
                     <p class="card-text" th:text="'Location: '+${scam.location}" />
                     <p class="card-text" th:text="'Description: '+${scam.description}" />
                     <p class="card-text" th:text="'Posted On: '+${scam.posted_on}" />
-                    <p class="card-text" th:text="'Flags: '+${scam.flags}" />
                     <a th:href="@{/scam/update/id={id}(id=${scam.id})}" class="btn btn-primary">Edit</a>
                     <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-primary">Delete</a>
                 </div>
