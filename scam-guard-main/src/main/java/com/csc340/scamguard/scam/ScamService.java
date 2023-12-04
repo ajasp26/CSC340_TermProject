@@ -46,7 +46,7 @@ public class ScamService {
      *
      * @param scam
      */
-    void saveScam(Scam scam) {
+    public void saveScam(Scam scam) {
         repo.save(scam);
     }
 
