@@ -29,7 +29,7 @@
                             <table border="0" cellpadding="10">
                                 <tr>
                                     <td>Posted By:</td>
-                                    <td><input class="form-control" type="text" th:field="*{posted_by}" disabled value="${scam.posted_by}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{posted_by}" readonly value="${scam.posted_by}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Associated Business:</td>
@@ -44,6 +44,9 @@
                                     </select></td>
                                 </tr>
                                 <tr>
+                                    <td><input class="form-control" type="text" th:field="*{id}" hidden value="${scam.id}"/></td>
+                                </tr>
+                                <tr>
                                     <td>Location:</td>
                                     <td><input class="form-control" type="text" th:field="*{location}" required value="${scam.location}"/></td>
                                 </tr>
@@ -53,20 +56,18 @@
                                 </tr>
                                 <tr>
                                     <td>Posted On:</td>
-                                    <td><input class="form-control" type="text" th:field="*{posted_on}" disabled value="${scam.posted_on}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{posted_on}" readonly value="${scam.posted_on}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Flags:</td>
-                                    <td><input class="form-control" type="number" min="0" th:field="*{flags}" disabled value="${scam.flags}"/></td>
+                                    <td><input class="form-control" type="number" min="0" th:field="*{flags}" readonly value="${scam.flags}"/></td>
                                 </tr>
                                 <tr>
                                     <td><button class="btn btn-primary" type="submit">Save</button> </td>
-                                    <td> <a href="/scam/all">Cancel</a></td>
+                                    <td> <button class="btn" href="/scam/all">Cancel</button></td>
                                 </tr>
                             </table>
                         </form>
-
-
                     </div>
 
 
