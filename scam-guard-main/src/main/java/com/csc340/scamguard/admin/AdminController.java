@@ -1,6 +1,7 @@
 package com.csc340.scamguard.admin;
 
 import com.csc340.scamguard.business.Business;
+import com.csc340.scamguard.business.BusinessService;
 import com.csc340.scamguard.scam.Scam;
 import com.csc340.scamguard.scam.ScamService;
 import com.csc340.scamguard.user.User;
@@ -21,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private ScamService scamService;
+
+    @Autowired
+    private BusinessService businessService;
 
     @Autowired
     AdminService service;
@@ -121,6 +125,57 @@ public class AdminController {
     public String updateScam(@ModelAttribute Scam scam) {
         scamService.saveScam(scam); // And assuming this method exists
         return "redirect:/admin/scams";
+    }
+
+    // Admin view for listing all businesses
+    @GetMapping("/business")
+    public String listBusinesses(Model model) {
+        List<Business> businesses = businessService.getAllBusinesses();
+        model.addAttribute("businessList", businesses);
+        return "admin/list-business"; // Path to the Thymeleaf template for listing businesses
+    }
+
+    // Admin view for business details
+    @GetMapping("/business/id/{id}")
+    public String viewBusiness(@PathVariable Long id, Model model) {
+        Business business = businessService.getBusiness(id);
+        model.addAttribute("business", business);
+        return "admin/business-detail"; // Path to the Thymeleaf template for business details
+    }
+
+    // Admin action for deleting a business
+    @GetMapping("/business/delete/id/{id}")
+    public String deleteBusiness(@PathVariable Long id) {
+        businessService.deleteBusiness(id);
+        return "redirect:/admin/business";
+    }
+
+    // Admin form for creating a new business
+    @GetMapping("/business/new")
+    public String newBusinessForm() {
+        return "admin/new-business"; // Path to the Thymeleaf template for creating a new business
+    }
+
+    // Admin action for saving a new business
+    @PostMapping("/business/create")
+    public String createBusiness(@ModelAttribute Business business) {
+        businessService.saveBusiness(business);
+        return "redirect:/admin/business";
+    }
+
+    // Admin form for editing an existing business
+    @GetMapping("/business/edit/id/{id}")
+    public String editBusinessForm(@PathVariable Long id, Model model) {
+        Business business = businessService.getBusiness(id);
+        model.addAttribute("business", business);
+        return "admin/edit-business"; // Path to the Thymeleaf template for editing a business
+    }
+
+    // Admin action for updating a business
+    @PostMapping("/business/update")
+    public String updateBusiness(@ModelAttribute Business business) {
+        businessService.updateBusiness(business);
+        return "redirect:/admin/business";
     }
 
 }

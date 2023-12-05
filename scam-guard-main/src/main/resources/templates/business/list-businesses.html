@@ -60,18 +60,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                      <tr th:each="business : ${businessList}">
-                        <td th:text="${business.id}"></td>
-                        <td th:text="${business.title}">Title</td> <!-- Updated to use 'title' -->
-                        <td th:text="${business.email}">Email</td>
-                        <td th:text="${business.location}">Location</td>
-                        <!-- Add other data columns as needed -->
-                        <!-- Example delete button column -->
-                    <td>
-                        <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-danger">Delete</a>
-                </td>
-        </tr>
-
+                        <tr th:each="business : ${businessList}">
+                            <td>
+                                <a th:href="@{/business/id={id}(id=${business.id})}" th:text="${business.id}"></a>
+                            </td>
+                            <td th:text="${business.title}"></td>
+                            <td th:text="${business.email}"></td>
+                            <td th:text="${business.location}"></td>
+                            <td>
+                                <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
