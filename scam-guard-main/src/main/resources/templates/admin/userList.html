@@ -51,7 +51,7 @@
         </thead>
         <tbody>
     <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
+        <td> <a th:href="@{/user/id={id}(id=${user.id})}" th:text=" ${user.id}" > </a></td>
         <td th:text="${user.userName}"></td> <!-- Update this line -->
         
         <td th:text="${user.email}"></td>

@@ -4,6 +4,8 @@ import com.csc340.scamguard.business.Business;
 import com.csc340.scamguard.business.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +41,13 @@ public class AlertController {
         for (Business b : businessService.getAllBusinesses()) {
             businessDict.put(b.getId(), b.getTitle());
         }
+
         model.addAttribute("businessDict", businessDict);
+
+        Collection<? extends GrantedAuthority> authorityList = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        boolean authority = authorityList.contains(new SimpleGrantedAuthority("BUSINESS")) || authorityList.contains(new SimpleGrantedAuthority("ADMIN"));
+        model.addAttribute("authority", authority);
         return "alert/list-alerts";
     }
 

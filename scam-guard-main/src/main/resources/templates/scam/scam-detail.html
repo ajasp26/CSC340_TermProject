@@ -27,7 +27,7 @@
                     <h3><strong class="card-title " th:text="Scam"></strong></h3>
                     <h6 class="card-text" th:text="${scam.posted_by}"></h6>
                 </div>
-                <div class="card-body" style="line-height: 0.75">
+                <div class="card-body" style="line-height: 1">
                     <p class="card-text" style="margin-bottom: 2em;" th:text="${scam.description}" />
                     <strong>Associated Business: </strong><span class="card-text" th:text="' '+${scam.associated_business}" /><p></p>
                     <strong>Target: </strong><span class="card-text" th:text="${scam.target}" /><p></p>

@@ -33,31 +33,20 @@
                                 </tr>
                                 <tr>
                                     <td>User Name:</td>
-                                    <td><input type="text" th:field="*{name}" value="${user.userName}" required/></td>
+                                    <td><input type="text" th:field="*{userName}" value="${user.userName}" required/></td>
                                 </tr>
                                 <tr>
                                     <td>Password</td>
-                                    <td><input type="password" th:field="*{password}" placeholder="Enter (new) password" required/></td>
+                                    <td><input type="password" th:field="*{password}" placeholder="Enter (new) password"/></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
                                     <td><input type="email" th:field="*{email}"  value="${user.email}" required/></td>
                                 </tr>
                                 <tr>
-                                    <td>Role</td>
-                                    <td>
-                                        <select th:field="*{role}" name="role" id="role"class="form-control form-control-sm">
-                                            <option value="USER">User</option>
-                                            <option value="MOD">Mod</option>
-                                            <option value="ADMIN">Admin</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td><button type="submit">Save</button> </td>
                                     <td> <a href="/user/all">Cancel</a></td>
                                 </tr>
-
                             </table>
                         </form>
 

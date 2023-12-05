@@ -23,7 +23,7 @@
             <h1 style="text-align:center;">Alert List</h1>
 
             <div style="align-content: center;">
-                <p class="my-5">
+                <p th:if="${authority}" class="my-5">
                     <a href="/alert/new-alert" class="btn btn-primary" >Add Alert</a>
                 </p>               
                 <form th:action="@{/alert/search}">
