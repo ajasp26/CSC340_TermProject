@@ -26,7 +26,7 @@ public class BusinessController {
 
     @GetMapping("/all")
     public String getAllBusinesses(Model model,
-            @RequestParam(name = "continue",required = false) String cont) {
+            @RequestParam(name = "continue", required = false) String cont) {
         model.addAttribute("businessList", service.getAllBusinesses());
         return "business/list-businesses";
     }

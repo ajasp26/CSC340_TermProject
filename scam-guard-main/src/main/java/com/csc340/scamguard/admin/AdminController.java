@@ -6,6 +6,7 @@ import com.csc340.scamguard.scam.Scam;
 import com.csc340.scamguard.scam.ScamService;
 import com.csc340.scamguard.user.User;
 import com.csc340.scamguard.user.UserRepository;
+import com.csc340.scamguard.user.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private BusinessService businessService;
+    
+    @Autowired
+    private UserService userService;
 
     @Autowired
     AdminService service;
@@ -85,7 +89,14 @@ public class AdminController {
     public String listUsers(Model model) {
         List<User> users = userRepository.findAll(); // Fetch users from the database
         model.addAttribute("users", users);
-        return "admin/userList";
+        return "admin/list-users";
+    }
+
+    @GetMapping("/user/id={id}")
+    public String viewUser(@PathVariable Long id, Model model) {
+        User user = userService.getUser(id); // Assuming userService has a method getUser(id)
+        model.addAttribute("user", user);
+        return "users/user-detail"; // Path to the Thymeleaf template for user details
     }
 
     /**
@@ -140,7 +151,7 @@ public class AdminController {
     public String viewBusiness(@PathVariable Long id, Model model) {
         Business business = businessService.getBusiness(id);
         model.addAttribute("business", business);
-        return "admin/business-detail"; // Path to the Thymeleaf template for business details
+        return "business/business-detail"; // Path to the Thymeleaf template for business details
     }
 
     // Admin action for deleting a business
@@ -177,5 +188,4 @@ public class AdminController {
         businessService.updateBusiness(business);
         return "redirect:/admin/business";
     }
-
 }

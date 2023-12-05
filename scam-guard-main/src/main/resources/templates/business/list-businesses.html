@@ -12,30 +12,54 @@
         <style>
             body {
                 background-color: #121212; /* Dark background */
-                color: #ffffff; /* Light text */
+                color: #e0e0e0; /* Light text for readability */
+                font-family: Arial, sans-serif; /* Modern font */
             }
             .navbar {
-                background-color: #343a40; /* Bootstrap dark navbar */
+                background-color: #333333; /* Dark color for navbar */
+                border-bottom: 2px solid #222222; /* Even darker bottom border */
             }
-            .form-control {
-                background-color: #2a2a2a; /* Dark input fields */
-                border: 1px solid #444;
-                color: #ffffff; /* Light text for input */
+            .navbar-brand {
+                color: #ddd; /* Lighter color for brand */
+                font-weight: bold; /* Bold font */
             }
-            .form-control::placeholder {
-                color: #888; /* Lighter placeholder text */
+            .btn-outline-success {
+                border-color: #28a745; /* Success color for border */
+                color: #28a745; /* Success color for text */
+            }
+            .btn-outline-success:hover {
+                background-color: #28a745; /* Success color on hover */
+                color: #fff; /* White text on hover */
+            }
+            h1 {
+                color: #17a2b8; /* Cyan color for heading */
+                margin-bottom: 20px; /* Spacing below heading */
+            }
+            .table {
+                background-color: #222222; /* Dark background for table */
+                color: #fff; /* Light text for table */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* More pronounced shadow for depth */
+            }
+            .table th {
+                background-color: #333333; /* Dark color for table header */
             }
             .btn-primary {
-                background-color: #0069d9; /* Bootstrap primary button color */
-                border-color: #0062cc;
+                background-color: #007bff; /* Primary button color */
+                border: none; /* Remove border */
             }
             .btn-primary:hover {
-                background-color: #0056b3; /* Darker shade for hover */
+                background-color: #0056b3; /* Darken on hover */
+            }
+            input[type="text"], input[type="submit"], input[type="button"] {
+                margin: 5px; /* Spacing around inputs */
+                background-color: #333; /* Dark background for inputs */
+                color: #fff; /* Light text for inputs */
+                border: 1px solid #444; /* Dark border for inputs */
             }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-light bg-light justify-content-between">
+        <nav class="navbar navbar-expand-lg navbar-dark"> <!-- Updated classes -->
             <a class="navbar-brand" th:href="@{/home}">Home</a>  
             <form class="form-inline" th:action="@{/logout}" method="post">                
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
@@ -57,6 +81,7 @@
                             <th>Title</th>
                             <th>Email</th>
                             <th>Location</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,14 +93,14 @@
                             <td th:text="${business.email}"></td>
                             <td th:text="${business.location}"></td>
                             <td>
+                                <a th:href="@{/business/id={id}(id=${business.id})}" class="btn btn-info">View</a>
                                 <a th:href="@{/business/delete/id={id}(id=${business.id})}" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-
         </div>
     </body>
 </html>
+
