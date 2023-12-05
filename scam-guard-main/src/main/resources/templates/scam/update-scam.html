@@ -36,6 +36,10 @@
                                     <td><input class="form-control" type="text" th:field="*{associated_business}" required value="${scam.associated_business}"/></td>
                                 </tr>
                                 <tr>
+                                    <td>Target:</td>
+                                    <td><input type="text" th:field="*{target}" required value="${scam.target}"/></td>
+                                </tr>
+                                <tr>
                                     <td>Method:</td>
                                     <td><select class="form-control" name="method" th:field="*{method}" id="method" required value="${scam.method}">
                                         <option value="E-mail">E-mail</option>

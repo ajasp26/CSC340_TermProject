@@ -28,9 +28,10 @@ ScamGuard is an interactive web platform designed to empower users to report and
 
 ## Technologies
 - Backend: Java with Spring Boot.
-- Frontend: Thymeleaf integrated with Spring Boot or React (if a separate front-end application is preferred).
-- Database: PostgreSQL or MongoDB.
-- External API: [TBD].
+- Frontend: Thymeleaf integrated with Spring Boot.
+- Database: MySQL
+- External API: ClearBit logo API: https://clearbit.com/logo
+- External API: Google Charts: https://developers.google.com/chart
 
 ## Team Members
 - Kenny: Responsible for the Regular User functionalities.
@@ -40,10 +41,9 @@ ScamGuard is an interactive web platform designed to empower users to report and
 ## Proposed Features
 ### Regular User
 - Submit a scam report.
-- View scam reports.
+- Upvote/Downvote scam reports
 
 ### Business User
-- Respond to scam reports.
 - Post/Edit/Delete Alerts
 - View business-related scam report statistics.
 

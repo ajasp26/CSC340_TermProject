@@ -16,4 +16,8 @@ public interface ScamRepository extends JpaRepository<Scam, Long> {
 
     @Query("SELECT s FROM Scam s WHERE CONCAT(s.associated_business, s.description, s.location, s.posted_by, s.target, s.method, s.posted_on) LIKE %?1%")
     public List<Scam> search(String keyword);
+  
+    //get all scams that have associated business by title
+    @Query("SELECT s FROM Scam s WHERE s.associated_business = ?1")
+    List<Scam> getAllScamsByBusinessTitle(String title);
 }

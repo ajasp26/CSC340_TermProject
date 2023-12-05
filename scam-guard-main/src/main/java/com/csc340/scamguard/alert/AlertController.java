@@ -67,7 +67,7 @@ public class AlertController {
     public String createAlert(Alert alert) {
         //Get the id of the business which just posted this alert and save to posted_by
         String title = SecurityContextHolder.getContext().getAuthentication().getName();
-        Business b = businessService.getBusinessByTitle(title);
+        Business b = businessService.getBusinessByTitle(title).get();
         long id = b.getId();
         alert.setPosted_by(id);
 

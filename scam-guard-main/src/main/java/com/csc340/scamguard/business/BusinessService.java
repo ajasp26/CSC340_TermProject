@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -78,8 +79,15 @@ public class BusinessService {
         repo.save(existing);
     }
 
-    public Business getBusinessByTitle(String title) {
-        return repo.findByTitle(title).orElseThrow(()
-                -> new UsernameNotFoundException(title + "not found"));
+    public Optional<Business> getBusinessByTitle(String title) {
+        return repo.findByTitle(title);
+    }
+
+    public Optional<Business> getBusinessByEmail(String email) {
+        return repo.findByEmail(email);
+    }
+
+    public Optional<Business> getBusinessByUrl(String url) {
+        return repo.findByUrl(url);
     }
 }

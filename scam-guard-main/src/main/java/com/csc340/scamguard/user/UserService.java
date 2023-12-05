@@ -1,6 +1,8 @@
 package com.csc340.scamguard.user;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,10 +81,12 @@ public class UserService {
         repo.save(existing);
     }
 
-    public User getUserByUserName(String userName) {
-        return repo.findByUserName(userName).orElseThrow(()
-                -> new UsernameNotFoundException(userName + "not found"));
+    public Optional<User> getUserByUserName(String userName) {
+        return repo.findByUserName(userName);
     }
 
 
+    public Optional<User> getUserByEmail(String email) {
+        return repo.findByEmail(email);
+    }
 }
