@@ -44,7 +44,19 @@
                                 <img th:src="@{/voteup.png}" alt="Upvote"/>
                             </button>
                         </form>
-                        <p class="card-text" th:text="${score}" />
+
+                        <div th:if="${green}">
+                            <p style="color: green;" class="card-text" th:text="${score}" />
+                        </div>
+                        <div th:unless="${green}">
+                            <div th:if="${red}">
+                                <p style="color: red;" class="card-text" th:text="${score}" />
+                            </div>
+                            <div th:unless="${red}">
+                                <p class="card-text" th:text="${score}" />
+                            </div>
+                        </div>
+
                         <form th:action="@{/scam/downvote/id={id}(id=${scam.id})}" method="get">
                             <button style="background: none; border: none;">
                                 <img th:src="@{/votedown.png}" alt="Downvote"/>

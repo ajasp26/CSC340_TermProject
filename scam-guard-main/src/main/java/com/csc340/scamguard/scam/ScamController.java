@@ -57,8 +57,15 @@ public class ScamController {
         model.addAttribute("scam",
                 scam);
 
+        int score = scam.getUpvotes().size() - scam.getDownvotes().size();
         model.addAttribute("score",
-                scam.getUpvotes().size() - scam.getDownvotes().size());
+                score);
+
+        model.addAttribute("green",
+                score > 0);
+
+        model.addAttribute("red",
+                score < 0);
 
         // condition determining if current user created scam or not
         boolean isCreator = username.equals(scam.getPosted_by());
