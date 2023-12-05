@@ -1,15 +1,10 @@
 package com.csc340.scamguard.scam;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.annotation.PostConstruct;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Scam {
 
     @Id
@@ -35,6 +31,10 @@ public class Scam {
     private String description;
     private String posted_on;
     private int flags;
-    private List<String> upvotes;
-    private List<String> downvotes;
+    @Builder.Default
+    @ElementCollection
+    private List<String> upvotes = new ArrayList<>();
+    @Builder.Default
+    @ElementCollection
+    private List<String> downvotes = new ArrayList<>();
 }
