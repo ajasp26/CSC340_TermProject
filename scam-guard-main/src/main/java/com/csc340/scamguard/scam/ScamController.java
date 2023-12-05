@@ -22,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/scam")
 public class ScamController {
 
+    // TODO: USER VIEW ALERTS
+
     @Autowired
     ScamService scamService;
 
@@ -54,8 +56,9 @@ public class ScamController {
         Scam scam = scamService.getScam(scamId);
         model.addAttribute("scam",
                 scam);
+
         model.addAttribute("score",
-                scam.getUpvotes().size() + scam.getDownvotes().size());
+                scam.getUpvotes().size() - scam.getDownvotes().size());
 
         // condition determining if current user created scam or not
         boolean isCreator = username.equals(scam.getPosted_by());
@@ -124,7 +127,7 @@ public class ScamController {
         }
     }
 
-    @PostMapping("/upvote/id={scamId}")
+    @GetMapping("/upvote/id={scamId}")
     public String upvoteScam(@PathVariable long scamId, Model model) {
         Scam scam = scamService.getScam(scamId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -141,10 +144,10 @@ public class ScamController {
 
         scamService.saveScam(scam);
 
-        return "";
+        return "redirect:/scam/id={scamId}";
     }
 
-    @PostMapping("/downvote/id={scamId}")
+    @GetMapping("/downvote/id={scamId}")
     public String downvoteScam(@PathVariable long scamId, Model model) {
         Scam scam = scamService.getScam(scamId);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -161,6 +164,6 @@ public class ScamController {
 
         scamService.saveScam(scam);
 
-        return "";
+        return "redirect:/scam/id={scamId}";
     }
 }
