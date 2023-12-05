@@ -37,4 +37,5 @@ public class Scam {
     @Builder.Default
     @ElementCollection
     private List<String> downvotes = new ArrayList<>();
+    private int score;
 }

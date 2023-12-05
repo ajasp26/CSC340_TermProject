@@ -1,7 +1,5 @@
 package com.csc340.scamguard.scam;
 
-import com.csc340.scamguard.business.Business;
-import com.csc340.scamguard.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -57,15 +55,7 @@ public class ScamController {
         model.addAttribute("scam",
                 scam);
 
-        int score = scam.getUpvotes().size() - scam.getDownvotes().size();
-        model.addAttribute("score",
-                score);
-
-        model.addAttribute("green",
-                score > 0);
-
-        model.addAttribute("red",
-                score < 0);
+        scoreAttributes(model, scam);
 
         // condition determining if current user created scam or not
         boolean isCreator = username.equals(scam.getPosted_by());
@@ -149,6 +139,8 @@ public class ScamController {
             scam.getDownvotes().remove(username);
         }
 
+        setScore(scam);
+
         scamService.saveScam(scam);
 
         return "redirect:/scam/id={scamId}";
@@ -169,8 +161,26 @@ public class ScamController {
             scam.getUpvotes().remove(username);
         }
 
+        setScore(scam);
+
         scamService.saveScam(scam);
 
         return "redirect:/scam/id={scamId}";
+    }
+
+    private void scoreAttributes(Model model, Scam scam) {
+        int score = scam.getUpvotes().size() - scam.getDownvotes().size();
+        model.addAttribute("score",
+                score);
+
+        model.addAttribute("green",
+                score > 0);
+
+        model.addAttribute("red",
+                score < 0);
+    }
+
+    private void setScore(Scam scam) {
+        scam.setScore(scam.getUpvotes().size() - scam.getDownvotes().size());
     }
 }
