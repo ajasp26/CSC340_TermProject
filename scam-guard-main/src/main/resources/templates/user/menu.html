@@ -17,24 +17,17 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
             </form>
         </nav>
+
         <div class="container">
-            <h1 th:text="'Hello, '+ ${currentName}"> </h1>
-            <div class="card" style="width: 18rem;">                
-                <div class="card-body">
-                    <h5 class="card-title">View Scams</h5>
-                    <a href="/scam/all" class="btn btn-primary" >Scam List</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Your Scams</h5>
-                    <a href="/scam/your-scams" class="btn btn-primary" >Scam List</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">                
-                <div class="card-body">
-                    <h5 class="card-title">Post a Scam</h5>
-                    <a href="/scam/new-scam" class="btn btn-primary" >Create New Scam</a>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 style="margin-bottom: 30px; margin-top: 20px;" th:text="'Hello, ' + ${currentName}"></h2>
+                    <div class="list-group">
+                        <a href="/scam/all" class="list-group-item list-group-item-action">View all scams</a>
+                        <a href="/scam/your-scams" class="list-group-item list-group-item-action">View your scams</a>
+                        <a href="/scam/new-scam" class="list-group-item list-group-item-action">Post a new scam</a>
+                        <a href="/alert/all" class="list-group-item list-group-item-action">View your alerts</a>
+                    </div>
                 </div>
             </div>
         </div>
