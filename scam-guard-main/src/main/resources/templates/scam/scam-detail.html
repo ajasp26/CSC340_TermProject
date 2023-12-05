@@ -37,6 +37,20 @@
                         <a th:href="@{/scam/update/id={id}(id=${scam.id})}" class="btn btn-primary">Edit</a>
                         <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-primary">Delete</a>
                     </div>
+
+                    <div th:unless="${creator}">
+                        <form th:action="@{/scam/upvote/id={id}(id=${scam.id})}" method="get">
+                            <button>
+                                <img th:src="@{/media/voteup.png}" alt="Upvote"/>
+                            </button>
+                        </form>
+                        <p class="card-text" th:text="${score}" />
+                        <form th:action="@{/scam/downvote/id={id}(id=${scam.id})}" method="get">
+                            <button type="submit">
+                                <img th:src="@{/media/votedown.png}" alt="Downvote"/>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <br>
