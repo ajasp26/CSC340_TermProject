@@ -102,7 +102,7 @@ public class AdminController {
     public String listScams(Model model) {
         List<Scam> scams = scamService.getAllScams(); // Fetches the list of scams
         model.addAttribute("scamList", scams); // Adds the list to the model
-        return "admin/admin-scams"; // Returns the admin scam listing view
+        return "admin/scamList"; // Returns the admin scam listing view
     }
 
 // Admin action for deleting a scam
