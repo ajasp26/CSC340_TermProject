@@ -20,19 +20,20 @@
         </nav>
         <div class="container">            
             <h1 style="text-align:center;">Scam Info</h1>
-            <div class="card" style="width: 18rem;">                
-                <div class="card-body">
-                    <h5 class="card-title">Scam</h5>
-                    <p class="card-text" th:text=" 'ID: '+ ${scam.id}" />
-                    <p class="card-text" th:text="'Posted By: '+${scam.posted_by}" />
-                    <p class="card-text" th:text="'Associated Business: '+${scam.associated_business}" />
-                    <p class="card-text" th:text="'Target: '+${scam.target}" />
-                    <p class="card-text" th:text="'Method: '+${scam.method}" />
-                    <p class="card-text" th:text="'Location: '+${scam.location}" />
-                    <p class="card-text" th:text="'Description: '+${scam.description}" />
-                    <p class="card-text" th:text="'Posted On: '+${scam.posted_on}" />
-                    <p class="card-text" th:text="'Flags: '+${scam.flags}" />
-
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h3><strong class="card-title " th:text="Scam"></strong></h3>
+                    <h6 class="card-text" th:text="${scam.posted_by}"></h6>
+                </div>
+                <div class="card-body" style="line-height: 0.75">
+                    <p class="card-text" style="margin-bottom: 2em;" th:text="${scam.description}" />
+                    <strong>Associated Business: </strong><span class="card-text" th:text="' '+${scam.associated_business}" /><p></p>
+                    <strong>Target: </strong><span class="card-text" th:text="${scam.target}" /><p></p>
+                    <strong>Method: </strong><span class="card-text" th:text="${scam.method}" /><p></p>
+                    <strong>Location: </strong><span class="card-text" th:text="${scam.location}" /><p></p>
+                    <strong>Posted On: </strong><span class="card-text" th:text="${scam.posted_on}" /><p></p>
+                </div>
+                <div class="card-footer">
                     <div th:if="${creator}">
                         <a th:href="@{/scam/update/id={id}(id=${scam.id})}" class="btn btn-primary">Edit</a>
                         <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-primary">Delete</a>
