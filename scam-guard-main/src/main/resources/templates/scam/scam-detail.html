@@ -38,16 +38,16 @@
                         <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-primary">Delete</a>
                     </div>
 
-                    <div th:unless="${creator}">
+                    <div th:unless="${creator}" style="display: flex; flex-direction: row; justify-content: space-between; width: 40%; ">
                         <form th:action="@{/scam/upvote/id={id}(id=${scam.id})}" method="get">
-                            <button>
-                                <img th:src="@{/media/voteup.png}" alt="Upvote"/>
+                            <button style="background: none; border: none;">
+                                <img th:src="@{/voteup.png}" alt="Upvote"/>
                             </button>
                         </form>
                         <p class="card-text" th:text="${score}" />
                         <form th:action="@{/scam/downvote/id={id}(id=${scam.id})}" method="get">
-                            <button type="submit">
-                                <img th:src="@{/media/votedown.png}" alt="Downvote"/>
+                            <button style="background: none; border: none;">
+                                <img th:src="@{/votedown.png}" alt="Downvote"/>
                             </button>
                         </form>
                     </div>
