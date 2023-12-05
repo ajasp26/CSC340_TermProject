@@ -29,15 +29,15 @@
                             <table border="0" cellpadding="10">
                                 <tr>
                                     <td>Posted By:</td>
-                                    <td><input type="text" th:field="*{posted_by}" disabled value="${scam.posted_by}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{posted_by}" disabled value="${scam.posted_by}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Associated Business:</td>
-                                    <td><input type="text" th:field="*{associated_business}" required value="${scam.associated_business}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{associated_business}" required value="${scam.associated_business}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Method:</td>
-                                    <td><select name="method" th:field="*{method}" id="method" required value="${scam.method}">
+                                    <td><select class="form-control form-control-sm" name="method" th:field="*{method}" id="method" required value="${scam.method}">
                                         <option value="E-mail">E-mail</option>
                                         <option value="Text Message">Text Message</option>
                                         <option value="Phone">Phone</option>
@@ -45,22 +45,22 @@
                                 </tr>
                                 <tr>
                                     <td>Location:</td>
-                                    <td><input type="text" th:field="*{location}" required value="${scam.location}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{location}" required value="${scam.location}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Description:</td>
-                                    <td><input type="text" th:field="*{description}" required value="${scam.description}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{description}" required value="${scam.description}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Posted On:</td>
-                                    <td><input type="text" th:field="*{posted_on}" disabled value="${scam.posted_on}"/></td>
+                                    <td><input class="form-control" type="text" th:field="*{posted_on}" disabled value="${scam.posted_on}"/></td>
                                 </tr>
                                 <tr>
                                     <td>Flags:</td>
-                                    <td><input type="number" min="0" th:field="*{flags}" disabled value="${scam.flags}"/></td>
+                                    <td><input class="form-control" type="number" min="0" th:field="*{flags}" disabled value="${scam.flags}"/></td>
                                 </tr>
                                 <tr>
-                                    <td><button type="submit">Save</button> </td>
+                                    <td><button class="btn btn-primary" type="submit">Save</button> </td>
                                     <td> <a href="/scam/all">Cancel</a></td>
                                 </tr>
                             </table>
