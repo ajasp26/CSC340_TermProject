@@ -22,45 +22,43 @@
 
             <h1 style="text-align:center;">Scam List</h1>
 
-            <div style="align-content: center;">
-                <p class="my-5">
-                    <a href="/scam/new-scam" class="btn btn-primary" >Add Scam</a>
-                </p>               
-                <form th:action="@{/scam/search}">
-                    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
-                    &nbsp;
-                    <input type="submit" value="Search" />
-                    &nbsp;
-                    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
-                </form>
-                <br>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Posted By</th>
-                                <th>Method</th>
-                                <th>Target</th>
-                                <th>Location</th>
-                                <th>Flags</th>
-                                <th>Posted On</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="scam : ${scamList}">
-                                <td> <a th:href="@{/scam/id={id}(id=${scam.id})}" th:text=" ${scam.description}"></a></td>
-                                <td th:text=" ${scam.posted_by}"></td>
-                                <td th:text=" ${scam.method}"></td>
-                                <td th:text=" ${scam.target}"></td>
-                                <td th:text=" ${scam.location}"></td>
-                                <td th:text=" ${scam.flags}"></td>
-                                <td th:text=" ${scam.posted_on}"></td>
-                                <td th:text=" ${scam.score}"></td>
-                            </tr>
+            <p class="mt-4 mb-4">
+                <a href="/scam/new-scam" class="btn btn-primary" >Add Scam</a>
+            </p>
 
-                        </tbody>
-                    </table>
+            <div style="align-content: center;">
+                <form class="mb-2" th:action="@{/scam/search}">
+                    Filter: <input class="form-control w-50 mb-2" type="text" name="keyword" id="keyword" th:value="${keyword}" required />
+                    <input class="btn btn-primary" type="submit" value="Search" />
+                    <input class="btn" type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+                </form>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Posted By</th>
+                            <th>Method</th>
+                            <th>Business</th>
+                            <th>Location</th>
+                            <th>Flags</th>
+                            <th>Score</th>
+                            <th>Posted On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="scam : ${scamList}">
+                            <td> <a th:href="@{/scam/id={id}(id=${scam.id})}" th:text=" ${scam.description}"></a></td>
+                            <td th:text=" ${scam.posted_by}"></td>
+                            <td th:text=" ${scam.method}"></td>
+                            <td th:text=" ${scam.associated_business}"></td>
+                            <td th:text=" ${scam.location}"></td>
+                            <td th:text=" ${scam.flags}"></td>
+                            <td th:text=" ${scam.score}"></td>
+                            <td th:text=" ${scam.posted_on}"></td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
 
 
