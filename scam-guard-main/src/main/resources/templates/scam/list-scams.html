@@ -37,12 +37,11 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Description</th>
                                 <th>Posted By</th>
-                                <th>Associated Business</th>
                                 <th>Method</th>
                                 <th>Target</th>
                                 <th>Location</th>
-                                <th>Description</th>
                                 <th>Flags</th>
                                 <th>Posted On</th>
                             </tr>
@@ -51,7 +50,6 @@
                             <tr th:each="scam : ${scamList}">
                                 <td> <a th:href="@{/scam/id={id}(id=${scam.id})}" th:text=" ${scam.description}"></a></td>
                                 <td th:text=" ${scam.posted_by}"></td>
-                                <td th:text=" ${scam.associated_business}"></td>
                                 <td th:text=" ${scam.method}"></td>
                                 <td th:text=" ${scam.target}"></td>
                                 <td th:text=" ${scam.location}"></td>
