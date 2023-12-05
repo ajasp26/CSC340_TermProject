@@ -96,11 +96,10 @@ public class ScamController {
 
     @PostMapping("/update")
     public String updateScam(Scam scam) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        scam.setFlags(scam.getFlags());
+        scam.setPosted_by(scam.getPosted_by());
 
-        if (username.equals(scam.getPosted_by())) {
-            scamService.saveScam(scam);
-        }
+        scamService.saveScam(scam);
 
         return "redirect:/scam/all";
     }
