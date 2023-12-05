@@ -9,6 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </head>
     <body>
@@ -20,19 +22,70 @@
         </nav>
         <div class="container">            
             <h1 style="text-align:center;">Scam Info</h1>
-            <div class="card" style="width: 18rem;">                
-                <div class="card-body">
-                    <h5 class="card-title">Scam</h5>
-                    <p class="card-text" th:text=" 'ID: '+ ${scam.id}" />
-                    <p class="card-text" th:text="'Posted By: '+${scam.posted_by}" />
-                    <p class="card-text" th:text="'Associated Business: '+${scam.associated_business}" />
-                    <p class="card-text" th:text="'Target: '+${scam.target}" />
-                    <p class="card-text" th:text="'Method: '+${scam.method}" />
-                    <p class="card-text" th:text="'Location: '+${scam.location}" />
-                    <p class="card-text" th:text="'Description: '+${scam.description}" />
-                    <p class="card-text" th:text="'Posted On: '+${scam.posted_on}" />
-                    <a th:href="@{/scam/update/id={id}(id=${scam.id})}" class="btn btn-primary">Edit</a>
-                    <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-primary">Delete</a>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h3><strong class="card-title " th:text="Scam"></strong></h3>
+                    <h6 class="card-text" th:text="${scam.posted_by}"></h6>
+                </div>
+                <div class="card-body" style="line-height: 0.75">
+                    <p class="card-text" style="margin-bottom: 2em;" th:text="${scam.description}" />
+                    <strong>Associated Business: </strong><span class="card-text" th:text="' '+${scam.associated_business}" /><p></p>
+                    <strong>Target: </strong><span class="card-text" th:text="${scam.target}" /><p></p>
+                    <strong>Method: </strong><span class="card-text" th:text="${scam.method}" /><p></p>
+                    <strong>Location: </strong><span class="card-text" th:text="${scam.location}" /><p></p>
+                    <strong>Posted On: </strong><span class="card-text" th:text="${scam.posted_on}" /><p></p>
+                </div>
+                <div class="card-footer">
+                    <div th:if="${creator}">
+                        <a th:href="@{/scam/update/id={id}(id=${scam.id})}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+
+                        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this scam?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <a th:href="@{/scam/delete/id={id}(id=${scam.id})}" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div th:unless="${creator}" style="display: flex; flex-direction: row; justify-content: space-between; width: 40%; ">
+                        <form th:action="@{/scam/upvote/id={id}(id=${scam.id})}" method="get">
+                            <button style="background: none; border: none;">
+                                <img th:src="@{/voteup.png}" alt="Upvote"/>
+                            </button>
+                        </form>
+
+                        <div th:if="${green}">
+                            <p style="color: green;" class="card-text" th:text="${score}" />
+                        </div>
+                        <div th:unless="${green}">
+                            <div th:if="${red}">
+                                <p style="color: red;" class="card-text" th:text="${score}" />
+                            </div>
+                            <div th:unless="${red}">
+                                <p class="card-text" th:text="${score}" />
+                            </div>
+                        </div>
+
+                        <form th:action="@{/scam/downvote/id={id}(id=${scam.id})}" method="get">
+                            <button style="background: none; border: none;">
+                                <img th:src="@{/votedown.png}" alt="Downvote"/>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <br>
