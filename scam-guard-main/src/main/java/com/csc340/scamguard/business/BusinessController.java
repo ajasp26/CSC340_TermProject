@@ -80,7 +80,7 @@ public class BusinessController {
     @PostMapping("/update")
     public String updateBusiness(Business business) {
         businessService.updateBusiness(business);
-        return "redirect:/business/menu";
+        return "redirect:/business/all";
     }
 
     @GetMapping("/new-business")
