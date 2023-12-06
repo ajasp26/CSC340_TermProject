@@ -36,9 +36,10 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD,
                                 DispatcherType.ERROR).permitAll()
                         .requestMatchers("/alert/**").permitAll()
-                        .requestMatchers("/business/**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/business/**").hasAnyAuthority("BUSINESS", "ADMIN")
+                        .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/scam/**").permitAll()
                         .requestMatchers("/").permitAll()
 
                         .anyRequest().authenticated()
