@@ -41,7 +41,6 @@ public class AlertController {
         for (Business b : businessService.getAllBusinesses()) {
             businessDict.put(b.getId(), b.getTitle());
         }
-
         model.addAttribute("businessDict", businessDict);
 
         Collection<? extends GrantedAuthority> authorityList = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
@@ -55,6 +54,14 @@ public class AlertController {
     public String getAlerts(Model model, @Param("keyword") String keyword) {
         model.addAttribute("alertList", alertService.getAllAlerts(keyword));
         model.addAttribute("keyword", keyword);
+
+        //Allow the alert list to display the business title instead of the business id
+        Map<Long, String> businessDict = new HashMap<>();
+        for (Business b : businessService.getAllBusinesses()) {
+            businessDict.put(b.getId(), b.getTitle());
+        }
+        model.addAttribute("businessDict", businessDict);
+
         return "alert/list-alerts";
     }
 

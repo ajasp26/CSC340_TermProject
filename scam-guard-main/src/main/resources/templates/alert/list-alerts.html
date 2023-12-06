@@ -46,8 +46,7 @@
                         <tbody>
                             <tr th:each="alert : ${alertList}">
                                 <td> <a th:href="@{/alert/id={id}(id=${alert.id})}" th:text=" ${alert.name}" > </a></td>
-                                <td> <a th:href="@{/business/id={id}(id=${alert.posted_by})}"
-                                        th:text=" ${businessDict.get(alert.posted_by)}" > </a></td>
+                                <td th:text=" ${businessDict.get(alert.posted_by)}"></td>
                                 <td th:text=" ${alert.method}"></td>
                                 <td th:text=" ${alert.location}"></td>
                             </tr>
