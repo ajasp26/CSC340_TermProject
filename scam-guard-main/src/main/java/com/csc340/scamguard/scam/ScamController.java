@@ -2,6 +2,8 @@ package com.csc340.scamguard.scam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 /**
  * @author Kenny Banks
@@ -27,6 +30,11 @@ public class ScamController {
 
     @GetMapping("/all")
     public String getAllScams(Model model) {
+        //only allow user or admin to create scam
+        Collection<? extends GrantedAuthority> authorityList = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        boolean authority = authorityList.contains(new SimpleGrantedAuthority("USER")) || authorityList.contains(new SimpleGrantedAuthority("ADMIN"));
+        model.addAttribute("authority", authority);
+
         model.addAttribute("scamList",
                 scamService.getAllScams());
         return "scam/list-scams";
